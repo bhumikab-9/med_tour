@@ -22,9 +22,9 @@
 
         <nav class="nav-links">
             <a href="treatments.html">Treatments</a>
-            <a href="#">Hospitals</a>
+            <a href="#hospitals" onclick="navigate(event, '#hospitals')">Hospitals</a>
             <a href="#">Doctors</a>
-            <a href="#">Compare</a>
+            <a href="#compare-cost" onclick="navigate(event, '#compare-cost')">Compare</a>
             <a href="#">How It Works</a>
         </nav>
 
@@ -39,6 +39,15 @@
     <!-- ================= HERO ================= -->
 
     <main>
+
+        <!-- SPA ROUTE PAGES -->
+        <section id="route-hospitals" style="display: none; padding: 150px 8%; text-align: center; min-height: 60vh;">
+            <h1 style="color: var(--navy); font-size: 48px;">Hospitals</h1>
+        </section>
+
+        <section id="route-compare-cost" style="display: none; padding: 150px 8%; text-align: center; min-height: 60vh;">
+            <h1 style="color: var(--navy); font-size: 48px;">Compare Cost</h1>
+        </section>
 
         <section class="hero">
 
@@ -632,9 +641,9 @@
                 <h4>Explore</h4>
 
                 <a href="treatments.html">Treatments</a>
-                <a href="#">Hospitals</a>
+                <a href="#hospitals" onclick="navigate(event, '#hospitals')">Hospitals</a>
                 <a href="#">Doctors</a>
-                <a href="#">Compare</a>
+                <a href="#compare-cost" onclick="navigate(event, '#compare-cost')">Compare</a>
 
             </div>
 
