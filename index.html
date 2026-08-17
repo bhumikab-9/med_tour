@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MedTour India | Find Healthcare in India</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            <span>MedTour<span class="logo-india">India</span></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="treatments.html">Treatments</a>
+            <a href="#">Hospitals</a>
+            <a href="#">Doctors</a>
+            <a href="#">Compare</a>
+            <a href="#">How It Works</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="language-btn">🌐 EN</button>
+            <button class="login-btn">Login</button>
+        </div>
+
+    </header>
+
+
+    <!-- ================= HERO ================= -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="hero-badge">
+                    <span>✦</span>
+                    Trusted healthcare across India
+                </div>
+
+                <h1>
+                    Healthcare in India,
+                    <span>made simpler.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Find trusted hospitals, experienced doctors and
+                    treatments across India — all in one place.
+                </p>
+
+
+                <!-- SEARCH BOX -->
+
+                <div class="main-search">
+
+                    <div class="search-input-area">
+
+                        <span class="search-icon">⌕</span>
+
+                        <input
+                            type="text"
+                            id="mainSearch"
+                            placeholder="Search treatment, hospital or doctor..."
+                        >
+
+                    </div>
+
+                    <div class="location-selector">
+                        <span>📍</span>
+                        <select id="citySelect">
+                            <option value="all">All India</option>
+                            <option value="delhi">Delhi</option>
+                            <option value="mumbai">Mumbai</option>
+                            <option value="chennai">Chennai</option>
+                            <option value="bangalore">Bangalore</option>
+                            <option value="hyderabad">Hyderabad</option>
+                        </select>
+                    </div>
+
+                    <button class="search-btn" onclick="performSearch()">
+                        Search
+                    </button>
+
+                </div>
+
+
+                <!-- QUICK SEARCH -->
+
+                <div class="quick-search">
+
+                    <span>Popular:</span>
+
+                    <button onclick="quickSearch('Cardiology')">
+                        Cardiology
+                    </button>
+
+                    <button onclick="quickSearch('Knee Replacement')">
+                        Knee Replacement
+                    </button>
+
+                    <button onclick="quickSearch('IVF')">
+                        IVF
+                    </button>
+
+                    <button onclick="quickSearch('Dental')">
+                        Dental
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- HERO VISUAL -->
+
+            <div class="hero-visual">
+
+                <div class="hero-card-main">
+
+                    <div class="doctor-visual">
+                        <div class="doctor-circle">
+                            👩‍⚕️
+                        </div>
+                    </div>
+
+                    <div class="hero-floating-card rating-card">
+                        <strong>4.8</strong>
+                        <span>⭐</span>
+                        <small>Patient rating</small>
+                    </div>
+
+                    <div class="hero-floating-card hospital-card">
+
+                        <div class="mini-icon">✓</div>
+
+                        <div>
+                            <strong>Verified Hospitals</strong>
+                            <small>Trusted healthcare partners</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TRUST BAR ================= -->
+
+        <section class="trust-bar">
+
+            <div class="trust-item">
+                <span class="trust-icon">✓</span>
+                <div>
+                    <strong>Verified Providers</strong>
+                    <small>Trusted hospitals & doctors</small>
+                </div>
+            </div>
+
+            <div class="trust-item">
+                <span class="trust-icon">₹</span>
+                <div>
+                    <strong>Transparent Pricing</strong>
+                    <small>Know estimated costs upfront</small>
+                </div>
+            </div>
+
+            <div class="trust-item">
+                <span class="trust-icon">⚡</span>
+                <div>
+                    <strong>Quick Assistance</strong>
+                    <small>Get help when you need it</small>
+                </div>
+            </div>
+
+            <div class="trust-item">
+                <span class="trust-icon">🔒</span>
+                <div>
+                    <strong>Secure & Private</strong>
+                    <small>Your information stays protected</small>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= POPULAR TREATMENTS ================= -->
+
+        <section class="section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">EXPLORE</span>
+
+                    <h2>Popular Treatments</h2>
+
+                    <p>
+                        Explore commonly searched treatments
+                        and their estimated costs.
+                    </p>
+                </div>
+
+                <a href="treatments.html" class="view-all">
+                    View all treatments →
+                </a>
+
+            </div>
+
+
+            <div class="treatment-grid">
+
+                <article class="treatment-card">
+
+                    <div class="treatment-image cardiac">
+                        ❤️
+                    </div>
+
+                    <div class="treatment-content">
+
+                        <span class="category">CARDIOLOGY</span>
+
+                        <h3>Heart Care</h3>
+
+                        <p>
+                            Cardiac procedures and specialist care.
+                        </p>
+
+                        <div class="card-bottom">
+                            <span>From <strong>₹2.5L</strong></span>
+                            <span class="arrow">→</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="treatment-card">
+
+                    <div class="treatment-image ortho">
+                        🦴
+                    </div>
+
+                    <div class="treatment-content">
+
+                        <span class="category">ORTHOPEDICS</span>
+
+                        <h3>Knee Replacement</h3>
+
+                        <p>
+                            Advanced joint replacement procedures.
+                        </p>
+
+                        <div class="card-bottom">
+                            <span>From <strong>₹1.5L</strong></span>
+                            <span class="arrow">→</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="treatment-card">
+
+                    <div class="treatment-image fertility">
+                        🧬
+                    </div>
+
+                    <div class="treatment-content">
+
+                        <span class="category">FERTILITY</span>
+
+                        <h3>IVF Treatment</h3>
+
+                        <p>
+                            Fertility care from experienced specialists.
+                        </p>
+
+                        <div class="card-bottom">
+                            <span>From <strong>₹1L</strong></span>
+                            <span class="arrow">→</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="treatment-card">
+
+                    <div class="treatment-image dental">
+                        🦷
+                    </div>
+
+                    <div class="treatment-content">
+
+                        <span class="category">DENTAL</span>
+
+                        <h3>Dental Implants</h3>
+
+                        <p>
+                            Modern dental care and implant procedures.
+                        </p>
+
+                        <div class="card-bottom">
+                            <span>From <strong>₹60K</strong></span>
+                            <span class="arrow">→</span>
+                        </div>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HOSPITALS ================= -->
+
+        <section class="section hospitals-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-label">TOP PROVIDERS</span>
+
+                    <h2>Trusted Hospitals</h2>
+
+                    <p>
+                        Discover leading healthcare providers
+                        across India's major cities.
+                    </p>
+                </div>
+
+                <a href="#" class="view-all">
+                    Explore hospitals →
+                </a>
+
+            </div>
+
+
+            <div class="hospital-grid">
+
+                <article class="hospital-card">
+
+                    <div class="hospital-image hospital-one">
+                        <span>Hospital</span>
+                    </div>
+
+                    <div class="hospital-info">
+
+                        <div class="hospital-title">
+                            <h3>Apollo Hospitals</h3>
+                            <span class="verified">✓</span>
+                        </div>
+
+                        <div class="hospital-meta">
+                            ⭐ 4.8 &nbsp; • &nbsp; Chennai
+                        </div>
+
+                        <p>
+                            Multi-specialty healthcare
+                            and advanced medical care.
+                        </p>
+
+                        <button>View Hospital →</button>
+
+                    </div>
+
+                </article>
+
+
+                <article class="hospital-card">
+
+                    <div class="hospital-image hospital-two">
+                        <span>Hospital</span>
+                    </div>
+
+                    <div class="hospital-info">
+
+                        <div class="hospital-title">
+                            <h3>Fortis Healthcare</h3>
+                            <span class="verified">✓</span>
+                        </div>
+
+                        <div class="hospital-meta">
+                            ⭐ 4.7 &nbsp; • &nbsp; Delhi
+                        </div>
+
+                        <p>
+                            Specialist-led care across
+                            multiple medical departments.
+                        </p>
+
+                        <button>View Hospital →</button>
+
+                    </div>
+
+                </article>
+
+
+                <article class="hospital-card">
+
+                    <div class="hospital-image hospital-three">
+                        <span>Hospital</span>
+                    </div>
+
+                    <div class="hospital-info">
+
+                        <div class="hospital-title">
+                            <h3>Medanta</h3>
+                            <span class="verified">✓</span>
+                        </div>
+
+                        <div class="hospital-meta">
+                            ⭐ 4.8 &nbsp; • &nbsp; Gurugram
+                        </div>
+
+                        <p>
+                            Advanced tertiary and
+                            super-specialty healthcare.
+                        </p>
+
+                        <button>View Hospital →</button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= COMPARE ================= -->
+
+        <section class="compare-section">
+
+            <div class="compare-content">
+
+                <span class="section-label">MAKE AN INFORMED CHOICE</span>
+
+                <h2>
+                    Don't just choose a hospital.
+                    <span>Compare.</span>
+                </h2>
+
+                <p>
+                    Compare hospitals based on estimated treatment
+                    costs, ratings, specialties and more.
+                </p>
+
+                <button class="primary-btn">
+                    Compare Hospitals →
+                </button>
+
+            </div>
+
+
+            <div class="comparison-preview">
+
+                <div class="comparison-header">
+                    <span>Hospital</span>
+                    <span>Cost</span>
+                    <span>Rating</span>
+                </div>
+
+                <div class="comparison-row">
+                    <strong>Apollo</strong>
+                    <span>₹3.2L</span>
+                    <span>⭐ 4.8</span>
+                </div>
+
+                <div class="comparison-row">
+                    <strong>Fortis</strong>
+                    <span>₹2.9L</span>
+                    <span>⭐ 4.7</span>
+                </div>
+
+                <div class="comparison-row selected">
+                    <strong>Medanta</strong>
+                    <span>₹3.5L</span>
+                    <span>⭐ 4.8</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= HOW IT WORKS ================= -->
+
+        <section class="section">
+
+            <div class="center-heading">
+
+                <span class="section-label">SIMPLE PROCESS</span>
+
+                <h2>How MedTour India works</h2>
+
+                <p>
+                    Finding healthcare shouldn't be complicated.
+                </p>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step">
+
+                    <div class="step-number">01</div>
+
+                    <h3>Search</h3>
+
+                    <p>
+                        Search for a treatment, doctor
+                        or hospital.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+                <div class="step">
+
+                    <div class="step-number">02</div>
+
+                    <h3>Compare</h3>
+
+                    <p>
+                        Compare providers, costs,
+                        ratings and specialties.
+                    </p>
+
+                </div>
+
+
+                <div class="step-line"></div>
+
+
+                <div class="step">
+
+                    <div class="step-number">03</div>
+
+                    <h3>Connect</h3>
+
+                    <p>
+                        Get in touch with the provider
+                        that fits your needs.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= AI ASSISTANT ================= -->
+
+        <section class="assistant-banner">
+
+            <div class="assistant-icon">
+                ✦
+            </div>
+
+            <div class="assistant-text">
+
+                <span>MEDTOUR AI</span>
+
+                <h2>Not sure where to start?</h2>
+
+                <p>
+                    Tell us what you're looking for and
+                    our AI assistant can help you explore
+                    your options.
+                </p>
+
+            </div>
+
+            <button class="assistant-btn">
+                Ask MedTour AI →
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer>
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="#" class="logo footer-logo">
+                    <span class="logo-icon">+</span>
+                    <span>MedTour<span class="logo-india">India</span></span>
+                </a>
+
+                <p>
+                    Making healthcare discovery simpler,
+                    clearer and more accessible.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Explore</h4>
+
+                <a href="treatments.html">Treatments</a>
+                <a href="#">Hospitals</a>
+                <a href="#">Doctors</a>
+                <a href="#">Compare</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Company</h4>
+
+                <a href="#">About Us</a>
+                <a href="#">How It Works</a>
+                <a href="#">Contact</a>
+                <a href="#">FAQs</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Support</h4>
+
+                <a href="#">Help Center</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+            <span>© 2026 MedTour India</span>
+            <span>Built for better healthcare discovery.</span>
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>

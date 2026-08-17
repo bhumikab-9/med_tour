@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Explore Treatments - MedTour India</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <div class="logo">
+            <span>+</span> MedTour India
+        </div>
+
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="treatments.html">Treatments</a>
+            <a href="hospitals.html">Hospitals</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="compare.html">Compare</a>
+            <a href="assistant.html">AI Assistant</a>
+        </nav>
+
+        <a href="consultation.html" class="nav-btn">
+            Book Consultation
+        </a>
+
+    </header>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+        <p class="small-title">EXPLORE HEALTHCARE</p>
+
+        <h1>Find the right treatment</h1>
+
+        <p>
+            Explore treatments, compare estimated costs
+            and find trusted healthcare providers.
+        </p>
+
+    </section>
+
+
+    <!-- SEARCH + FILTERS -->
+    <section class="treatment-section">
+
+        <div class="treatment-search">
+
+            <input
+                type="text"
+                id="treatmentSearch"
+                placeholder="Search treatments..."
+            >
+
+            <select id="cityFilter">
+                <option value="all">All Cities</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="chennai">Chennai</option>
+                <option value="bangalore">Bangalore</option>
+            </select>
+
+            <button onclick="filterTreatments()">
+                Search
+            </button>
+
+        </div>
+
+
+        <!-- TREATMENT CARDS -->
+        <div class="treatment-list" id="treatmentList">
+
+
+            <!-- CARD 1 -->
+            <div class="treatment-item" data-city="delhi">
+
+                <div class="treatment-image">
+                    🦷
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        DENTAL
+                    </p>
+
+                    <h2>Dental Implant</h2>
+
+                    <p>
+                        Replace missing teeth with modern
+                        dental implant procedures.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Delhi</span>
+
+                        <span>💰 ₹60,000 - ₹90,000</span>
+
+                        <span>⏱ 1-2 Days</span>
+
+                    </div>
+
+                    <a
+                        href="treatment-details.html"
+                        class="card-button"
+                    >
+                        View Treatment
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 2 -->
+            <div class="treatment-item" data-city="mumbai">
+
+                <div class="treatment-image">
+                    🧬
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        FERTILITY
+                    </p>
+
+                    <h2>IVF Treatment</h2>
+
+                    <p>
+                        Advanced fertility treatment from
+                        experienced specialists.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Mumbai</span>
+
+                        <span>💰 ₹1,00,000 - ₹1,80,000</span>
+
+                        <span>⏱ 2-4 Weeks</span>
+
+                    </div>
+
+                    <a
+                        href="treatment-details.html"
+                        class="card-button"
+                    >
+                        View Treatment
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 3 -->
+            <div class="treatment-item" data-city="chennai">
+
+                <div class="treatment-image">
+                    🦴
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        ORTHOPEDIC
+                    </p>
+
+                    <h2>Knee Replacement</h2>
+
+                    <p>
+                        Advanced joint replacement procedures
+                        by experienced orthopedic surgeons.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Chennai</span>
+
+                        <span>💰 ₹1,50,000 - ₹2,50,000</span>
+
+                        <span>⏱ 5-7 Days</span>
+
+                    </div>
+
+                    <a
+                        href="treatment-details.html"
+                        class="card-button"
+                    >
+                        View Treatment
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 4 -->
+            <div class="treatment-item" data-city="bangalore">
+
+                <div class="treatment-image">
+                    ✨
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        COSMETIC
+                    </p>
+
+                    <h2>Hair Transplant</h2>
+
+                    <p>
+                        Modern hair restoration procedures
+                        performed by specialists.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Bangalore</span>
+
+                        <span>💰 ₹50,000 - ₹1,20,000</span>
+
+                        <span>⏱ 1-3 Days</span>
+
+                    </div>
+
+                    <a
+                        href="treatment-details.html"
+                        class="card-button"
+                    >
+                        View Treatment
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-logo">
+            <span>+</span> MedTour India
+        </div>
+
+        <p>
+            Helping patients discover healthcare
+            options across India.
+        </p>
+
+        <p class="copyright">
+            © 2026 MedTour India
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
