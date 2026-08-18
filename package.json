@@ -1,0 +1,15 @@
+{
+    "name": "medtour-medical-ai",
+    "version": "1.0.0",
+    "private": true,
+    "description": "MedTour India — Medical AI Health Assistant",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "dev": "node server.js"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "license": "UNLICENSED"
+}
