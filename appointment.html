@@ -118,6 +118,32 @@
             margin-bottom: 25px;
             border: 1px solid rgba(13, 159, 145, 0.2);
         }
+
+        .validation-message {
+            font-size: 13px;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .validation-message.error {
+            color: #dc3545;
+        }
+
+        .validation-message.success {
+            color: #28a745;
+        }
+
+        .form-group input.input-error {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 4px rgba(220, 53, 69, 0.1) !important;
+        }
+
+        .form-group input.input-success {
+            border-color: #28a745 !important;
+            box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.1) !important;
+        }
     </style>
 </head>
 
@@ -166,6 +192,7 @@
                 <div class="form-group">
                     <label for="email">Email Address</label>
                     <input type="email" id="email" placeholder="Enter your email address" required>
+                    <div id="emailValidation" class="validation-message"></div>
                 </div>
 
                 <div class="date-row">
@@ -178,6 +205,7 @@
                         <input type="date" id="endDate" required>
                     </div>
                 </div>
+                <div id="dateValidation" class="validation-message" style="margin-bottom: 15px;"></div>
 
                 <div class="form-group">
                     <label for="treatment">Treatment Seeking</label>
@@ -226,7 +254,84 @@
         const appointmentForm = document.getElementById('appointmentForm');
         const treatmentSelect = document.getElementById('treatment');
         const hospitalSelect = document.getElementById('hospital');
+        const emailInput = document.getElementById('email');
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+        const emailValidation = document.getElementById('emailValidation');
+        const dateValidation = document.getElementById('dateValidation');
         const appointmentParams = new URLSearchParams(window.location.search);
+
+        // Email validation function
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Email input real-time validation
+        emailInput.addEventListener('input', function () {
+            const email = this.value.trim();
+            
+            if (email === '') {
+                emailValidation.textContent = '';
+                emailInput.classList.remove('input-error', 'input-success');
+                return;
+            }
+
+            if (validateEmail(email)) {
+                emailValidation.innerHTML = '✓ Valid email';
+                emailValidation.className = 'validation-message success';
+                emailInput.classList.remove('input-error');
+                emailInput.classList.add('input-success');
+            } else {
+                emailValidation.innerHTML = '✗ Invalid email format';
+                emailValidation.className = 'validation-message error';
+                emailInput.classList.remove('input-success');
+                emailInput.classList.add('input-error');
+            }
+        });
+
+        // Date validation function
+        function validateDates() {
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+
+            if (!startDate || !endDate) {
+                dateValidation.textContent = '';
+                startDateInput.classList.remove('input-error', 'input-success');
+                endDateInput.classList.remove('input-error', 'input-success');
+                return;
+            }
+
+            if (endDate < startDate) {
+                dateValidation.innerHTML = '✗ End date cannot be before start date';
+                dateValidation.className = 'validation-message error';
+                startDateInput.classList.remove('input-success');
+                startDateInput.classList.add('input-error');
+                endDateInput.classList.remove('input-success');
+                endDateInput.classList.add('input-error');
+            } else if (endDate === startDate) {
+                dateValidation.innerHTML = '⚠ Start and end date are the same';
+                dateValidation.className = 'validation-message error';
+                startDateInput.classList.remove('input-success');
+                startDateInput.classList.add('input-error');
+                endDateInput.classList.remove('input-success');
+                endDateInput.classList.add('input-error');
+            } else {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+                dateValidation.innerHTML = `✓ Trip duration: ${days} days`;
+                dateValidation.className = 'validation-message success';
+                startDateInput.classList.remove('input-error');
+                startDateInput.classList.add('input-success');
+                endDateInput.classList.remove('input-error');
+                endDateInput.classList.add('input-success');
+            }
+        }
+
+        // Add event listeners for date validation
+        startDateInput.addEventListener('change', validateDates);
+        endDateInput.addEventListener('change', validateDates);
 
         async function loadAppointmentOptions() {
             const [treatmentsResponse, hospitalsResponse] = await Promise.all([
