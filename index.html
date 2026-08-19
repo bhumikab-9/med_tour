@@ -25,7 +25,7 @@
             <a href="#hospitals" onclick="navigate(event, '#hospitals')">Hospitals</a>
             <a href="#">Doctors</a>
             <a href="#compare-cost" onclick="navigate(event, '#compare-cost')">Compare</a>
-            <a href="#">How It Works</a>
+            <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
         </nav>
 
         <div class="nav-actions">
@@ -67,6 +67,12 @@
                     Find trusted hospitals, experienced doctors and
                     treatments across India — all in one place.
                 </p>
+
+                <div style="margin-top: 25px; margin-bottom: 25px;">
+                    <a href="appointment.html" style="display: inline-block; background: var(--teal); color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 10px rgba(13,159,145,0.2); transition: transform 0.2s;">
+                        Book Appointment →
+                    </a>
+                </div>
 
 
                 <!-- SEARCH BOX -->
@@ -131,35 +137,31 @@
             </div>
 
 
-            <!-- HERO VISUAL -->
-
             <div class="hero-visual">
 
-                <div class="hero-card-main">
-
-                    <div class="doctor-visual">
-                        <div class="doctor-circle">
-                            👩‍⚕️
+                <div class="ai-chat-window">
+                    <div class="ai-chat-header">
+                        <div class="ai-avatar">✨</div>
+                        <div class="ai-header-info">
+                            <strong>MedTour AI</strong>
+                            <small>Online • Medical Assistant</small>
                         </div>
                     </div>
-
-                    <div class="hero-floating-card rating-card">
-                        <strong>4.8</strong>
-                        <span>⭐</span>
-                        <small>Patient rating</small>
-                    </div>
-
-                    <div class="hero-floating-card hospital-card">
-
-                        <div class="mini-icon">✓</div>
-
-                        <div>
-                            <strong>Verified Hospitals</strong>
-                            <small>Trusted healthcare partners</small>
+                    <div class="ai-chat-body">
+                        <div class="ai-msg">
+                            Hi! I'm your MedTour assistant. How can I help you plan your medical trip to India?
                         </div>
-
+                        <div class="user-msg">
+                            I'm looking for Heart Bypass surgery options.
+                        </div>
+                        <div class="ai-msg typing-indicator">
+                            <span></span><span></span><span></span>
+                        </div>
                     </div>
-
+                    <div class="ai-chat-input">
+                        <input type="text" placeholder="Type your message...">
+                        <button class="ai-send-btn">↗</button>
+                    </div>
                 </div>
 
             </div>
@@ -232,7 +234,7 @@
 
             <div class="treatment-grid">
 
-                <article class="treatment-card">
+                <article class="treatment-card" onclick="viewTreatment('Heart Bypass Surgery')" style="cursor: pointer;">
 
                     <div class="treatment-image cardiac">
                         ❤️
@@ -258,7 +260,7 @@
                 </article>
 
 
-                <article class="treatment-card">
+                <article class="treatment-card" onclick="viewTreatment('Knee Replacement')" style="cursor: pointer;">
 
                     <div class="treatment-image ortho">
                         🦴
@@ -284,7 +286,7 @@
                 </article>
 
 
-                <article class="treatment-card">
+                <article class="treatment-card" onclick="viewTreatment('IVF Treatment')" style="cursor: pointer;">
 
                     <div class="treatment-image fertility">
                         🧬
@@ -310,7 +312,7 @@
                 </article>
 
 
-                <article class="treatment-card">
+                <article class="treatment-card" onclick="viewTreatment('Dental Implants')" style="cursor: pointer;">
 
                     <div class="treatment-image dental">
                         🦷
@@ -584,33 +586,7 @@
         </section>
 
 
-        <!-- ================= AI ASSISTANT ================= -->
 
-        <section class="assistant-banner">
-
-            <div class="assistant-icon">
-                ✦
-            </div>
-
-            <div class="assistant-text">
-
-                <span>MEDTOUR AI</span>
-
-                <h2>Not sure where to start?</h2>
-
-                <p>
-                    Tell us what you're looking for and
-                    our AI assistant can help you explore
-                    your options.
-                </p>
-
-            </div>
-
-            <button class="assistant-btn">
-                Ask MedTour AI →
-            </button>
-
-        </section>
 
     </main>
 
