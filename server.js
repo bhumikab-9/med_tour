@@ -5,11 +5,12 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'MySQL@2026_Project!',
+  password: 'root',
   database: 'meddatabase'
 });
 
@@ -65,6 +66,58 @@ app.get('/api/treatment-hospitals', (req, res) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(results);
   });
+});
+
+app.post('/api/appointments', (req, res) => {
+  const {
+    username,
+    email,
+    startDate,
+    endDate,
+    treatmentId,
+    hospitalId,
+    notes
+  } = req.body;
+
+  if (!username || !email || !startDate || !endDate || !Number.isInteger(Number(treatmentId))) {
+    return res.status(400).json({
+      error: 'username, email, startDate, endDate, and treatmentId are required'
+    });
+  }
+
+  if (endDate < startDate) {
+    return res.status(400).json({ error: 'endDate cannot be before startDate' });
+  }
+
+  const query = `
+    INSERT INTO appointment
+      (username, email, start_date, end_date, treatment_id, hospital_id, notes)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  db.query(
+    query,
+    [
+      username.trim(),
+      email.trim(),
+      startDate,
+      endDate,
+      Number(treatmentId),
+      hospitalId ? Number(hospitalId) : null,
+      notes ? notes.trim() : null
+    ],
+    (err, result) => {
+      if (err) {
+        console.error('Appointment insert failed:', err);
+        return res.status(500).json({ error: 'Failed to save appointment' });
+      }
+
+      res.status(201).json({
+        message: 'Appointment request created',
+        appointmentId: result.insertId
+      });
+    }
+  );
 });
 
 app.listen(5000, () => {

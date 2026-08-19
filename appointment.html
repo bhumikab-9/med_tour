@@ -156,8 +156,7 @@
                 ✈️ Priority International Patient Desk
             </div>
 
-            <form
-                onsubmit="event.preventDefault(); alert('Appointment request submitted successfully! Our international desk will contact you shortly.'); window.location.href='index.html';">
+            <form id="appointmentForm">
 
                 <div class="form-group">
                     <label for="username">Username (Full Name)</label>
@@ -184,12 +183,6 @@
                     <label for="treatment">Treatment Seeking</label>
                     <select id="treatment" required>
                         <option value="" disabled selected>Select a treatment...</option>
-                        <option value="heart">Heart Bypass Surgery</option>
-                        <option value="ortho">Knee Replacement</option>
-                        <option value="ivf">IVF Treatment</option>
-                        <option value="dental">Dental Implants</option>
-                        <option value="neuro">Brain Tumor Surgery</option>
-                        <option value="other">Other / Not Sure Yet</option>
                     </select>
                 </div>
 
@@ -197,12 +190,6 @@
                     <label for="hospital">Preferred Hospital</label>
                     <select id="hospital">
                         <option value="" disabled selected>Select a hospital (Optional)...</option>
-                        <option value="apollo">Apollo Hospitals</option>
-                        <option value="fortis">Fortis Healthcare</option>
-                        <option value="medanta">Medanta</option>
-                        <option value="manipal">Manipal Hospitals</option>
-                        <option value="max">Max Super Speciality Hospital</option>
-                        <option value="no_preference">No Preference / Help me choose</option>
                     </select>
                 </div>
 
@@ -235,6 +222,87 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        const appointmentForm = document.getElementById('appointmentForm');
+        const treatmentSelect = document.getElementById('treatment');
+        const hospitalSelect = document.getElementById('hospital');
+        const appointmentParams = new URLSearchParams(window.location.search);
+
+        async function loadAppointmentOptions() {
+            const [treatmentsResponse, hospitalsResponse] = await Promise.all([
+                fetch('http://localhost:5000/api/treatments'),
+                fetch('http://localhost:5000/api/hospitals')
+            ]);
+
+            if (!treatmentsResponse.ok || !hospitalsResponse.ok) {
+                throw new Error('Unable to load appointment options');
+            }
+
+            const treatments = await treatmentsResponse.json();
+            const hospitals = await hospitalsResponse.json();
+
+            treatments.forEach(function (treatment) {
+                treatmentSelect.add(new Option(treatment.name, treatment.id));
+            });
+
+            hospitals.forEach(function (hospital) {
+                hospitalSelect.add(new Option(hospital.name, hospital.id));
+            });
+
+            const treatmentParam = appointmentParams.get('treatment');
+            const hospitalParam = appointmentParams.get('hospital');
+            const matchingTreatment = treatments.find(function (treatment) {
+                return String(treatment.id) === treatmentParam || treatment.name === treatmentParam;
+            });
+            const matchingHospital = hospitals.find(function (hospital) {
+                return String(hospital.id) === hospitalParam || hospital.name === hospitalParam;
+            });
+
+            if (matchingTreatment) treatmentSelect.value = matchingTreatment.id;
+            if (matchingHospital) hospitalSelect.value = matchingHospital.id;
+        }
+
+        appointmentForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            if (endDate < startDate) {
+                alert('End date cannot be before start date.');
+                return;
+            }
+
+            const payload = {
+                username: document.getElementById('username').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                startDate: startDate,
+                endDate: endDate,
+                treatmentId: Number(treatmentSelect.value),
+                hospitalId: hospitalSelect.value ? Number(hospitalSelect.value) : null,
+                notes: document.getElementById('notes').value.trim()
+            };
+
+            const response = await fetch('http://localhost:5000/api/appointments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(result.error || 'Unable to submit appointment.');
+                return;
+            }
+
+            alert('Appointment request submitted successfully.');
+            window.location.href = 'index.html';
+        });
+
+        loadAppointmentOptions().catch(function (error) {
+            console.error(error);
+            alert('Unable to load treatments and hospitals. Please try again later.');
+        });
+    </script>
 </body>
 
 </html>

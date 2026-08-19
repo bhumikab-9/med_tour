@@ -331,6 +331,29 @@ LOCK TABLES `treatment` WRITE;
 INSERT INTO `treatment` VALUES (1,'Angioplasty','Procedure to open blocked or narrowed coronary arteries'),(2,'ECG Test','Electrocardiogram used to measure electrical activity of the heart'),(3,'Knee Replacement','Surgical replacement of a damaged knee joint'),(4,'Fracture Treatment','Treatment and stabilization of broken bones'),(5,'MRI Scan','Magnetic resonance imaging diagnostic scan'),(6,'Skin Allergy Treatment','Diagnosis and treatment of allergic skin conditions'),(7,'Child Vaccination','Routine vaccination and immunization for children'),(8,'Appendectomy','Surgical removal of the appendix'),(9,'Cataract Surgery','Surgical removal of cataract from the eye'),(10,'Hearing Test','Diagnostic test to assess hearing ability'),(11,'Normal Delivery','Standard vaginal childbirth procedure'),(12,'Cesarean Section','Surgical childbirth procedure'),(13,'Chemotherapy','Drug treatment used to treat cancer'),(14,'Cancer Screening','Diagnostic screening for early cancer detection'),(15,'Spinal Surgery','Surgical treatment of spinal conditions'),(16,'Laser Eye Surgery','Laser based procedure for vision correction'),(17,'Tonsillectomy','Surgical removal of the tonsils'),(18,'Physiotherapy','Physical rehabilitation and recovery treatment');
 /*!40000 ALTER TABLE `treatment` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `appointment`
+--
+
+DROP TABLE IF EXISTS `appointment`;
+CREATE TABLE `appointment` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `username` varchar(100) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `start_date` date NOT NULL,
+  `end_date` date NOT NULL,
+  `treatment_id` bigint NOT NULL,
+  `hospital_id` bigint DEFAULT NULL,
+  `notes` text,
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `appointment_treatment_id` (`treatment_id`),
+  KEY `appointment_hospital_id` (`hospital_id`),
+  CONSTRAINT `appointment_treatment_fk` FOREIGN KEY (`treatment_id`) REFERENCES `treatment` (`id`),
+  CONSTRAINT `appointment_hospital_fk` FOREIGN KEY (`hospital_id`) REFERENCES `hospital` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
