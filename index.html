@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +26,7 @@
             <a href="#hospitals" onclick="navigate(event, '#hospitals')">Hospitals</a>
             <a href="#">Doctors</a>
             <a href="#compare-cost" onclick="navigate(event, '#compare-cost')">Compare</a>
+            <a href="compareCost.html">compareCost</a>
             <a href="#">How It Works</a>
         </nav>
 
@@ -45,7 +47,8 @@
             <h1 style="color: var(--navy); font-size: 48px;">Hospitals</h1>
         </section>
 
-        <section id="route-compare-cost" style="display: none; padding: 150px 8%; text-align: center; min-height: 60vh;">
+        <section id="route-compare-cost"
+            style="display: none; padding: 150px 8%; text-align: center; min-height: 60vh;">
             <h1 style="color: var(--navy); font-size: 48px;">Compare Cost</h1>
         </section>
 
@@ -77,11 +80,7 @@
 
                         <span class="search-icon">⌕</span>
 
-                        <input
-                            type="text"
-                            id="mainSearch"
-                            placeholder="Search treatment, hospital or doctor..."
-                        >
+                        <input type="text" id="mainSearch" placeholder="Search treatment, hospital or doctor...">
 
                     </div>
 
@@ -684,4 +683,5 @@
     <script src="script.js"></script>
 
 </body>
+
 </html>
