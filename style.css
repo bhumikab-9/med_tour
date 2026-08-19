@@ -2329,3 +2329,94 @@ footer {
 .ai-care-note {
     margin: 8px 0 0;
 }
+
+.ai-file-label {
+    color: var(--teal-dark);
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.ai-file-label:hover {
+    color: var(--navy);
+}
+
+.ai-pdf-name {
+    min-width: 0;
+    max-width: 180px;
+    overflow: hidden;
+    color: #687582;
+    font-size: 10.5px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ai-confidence,
+.ai-sponsored {
+    margin: 12px 0 0 38px;
+    max-width: 720px;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.ai-confidence {
+    border: 1px solid #d9e7e5;
+    background: #f8fcfb;
+}
+
+.ai-confidence > strong,
+.ai-sponsored strong {
+    display: block;
+    color: var(--navy);
+    font-size: 12px;
+}
+
+.ai-confidence-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 42px;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.ai-confidence-row b {
+    color: var(--teal-dark);
+    text-align: right;
+}
+
+.ai-confidence-row i {
+    grid-column: 1 / -1;
+    height: 5px;
+    overflow: hidden;
+    border-radius: 3px;
+    background: #dce9e7;
+}
+
+.ai-confidence-row em {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--teal);
+}
+
+.ai-confidence small,
+.ai-sponsored small {
+    display: block;
+    margin-top: 9px;
+    color: #687582;
+    font-size: 10.5px;
+    line-height: 1.45;
+}
+
+.ai-sponsored {
+    border: 1px solid #ead9b0;
+    background: #fffaf0;
+}
+
+.ai-sponsored span {
+    display: block;
+    margin-top: 4px;
+    color: #4b5660;
+}

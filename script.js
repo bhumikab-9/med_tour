@@ -102,7 +102,9 @@ document.addEventListener("DOMContentLoaded", handleRoute);
         input: document.getElementById("aiInput"),
         send: document.getElementById("aiSendBtn"),
         count: document.getElementById("aiCharCount"),
-        clear: document.getElementById("aiClearBtn")
+        clear: document.getElementById("aiClearBtn"),
+        pdf: document.getElementById("aiPdf"),
+        pdfName: document.getElementById("aiPdfName")
     };
 
     var state = {
@@ -230,6 +232,30 @@ document.addEventListener("DOMContentLoaded", handleRoute);
             '<p class="ai-care-note">Catalog estimates are for comparison only. Confirm current pricing, availability, eligibility, and clinical suitability directly with a qualified hospital.</p>';
         els.messages.appendChild(wrap);
         scrollBottom(true);
+    }
+
+    function appendSponsoredHospital(hospital) {
+        if (!hospital) return;
+        var wrap = document.createElement("div");
+        wrap.className = "ai-sponsored";
+        wrap.innerHTML = "<strong>Sponsored care navigation</strong><span>" +
+            escapeHtml(hospital.name) + " · " + escapeHtml(hospital.city) +
+            "</span><small>Advertisement. Sponsorship does not indicate clinical suitability or quality ranking. Verify directly with the hospital.</small>";
+        els.messages.appendChild(wrap);
+    }
+
+    function appendConfidence(values, grounded, fileName) {
+        if (!Array.isArray(values) || !values.length) return;
+        var wrap = document.createElement("div");
+        wrap.className = "ai-confidence";
+        var heading = grounded ? "Document-informed symptom matches" : "Symptom-match confidence";
+        var source = grounded && fileName ? " · Based partly on " + escapeHtml(fileName) : "";
+        wrap.innerHTML = "<strong>" + heading + source + "</strong>" + values.map(function (item) {
+            var score = Math.max(0, Math.min(100, Number(item.confidence) || 0));
+            return "<div class=\"ai-confidence-row\"><span>" + escapeHtml(item.condition) +
+                "</span><b>" + score + "%</b><i><em style=\"width:" + score + "%\"></em></i></div>";
+        }).join("") + "<small>These are not a diagnosis or a true probability. A clinician must confirm the cause.</small>";
+        els.messages.appendChild(wrap);
     }
 
     var URGENCY_LABEL = {
@@ -367,16 +393,26 @@ document.addEventListener("DOMContentLoaded", handleRoute);
         showTyping();
         removeError();
 
-        fetch(apiBase() + API_PATH, {
+        var request = {
+            message: text,
+            conversation_id: state.conversationId,
+            conversation_history: state.history.slice(0, -1)
+        };
+        var requestFile = els.pdf.files && els.pdf.files[0];
+        var filePromise = requestFile ? new Promise(function (resolve, reject) {
+            var reader = new FileReader();
+            reader.onload = function () { resolve({ name: requestFile.name, mimeType: requestFile.type, base64: reader.result }); };
+            reader.onerror = reject;
+            reader.readAsDataURL(requestFile);
+        }) : Promise.resolve(null);
+
+        filePromise.then(function (documentData) {
+            request.document = documentData;
+            return fetch(apiBase() + API_PATH, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: text,
-                conversation_id: state.conversationId,
-                // The current user turn is sent via `message`; the server pushes
-                // it itself, so exclude it from the replayed history.
-                conversation_history: state.history.slice(0, -1)
-            })
+            body: JSON.stringify(request)
+            });
         })
             .then(function (res) {
                 return res.json().catch(function () { return null; }).then(function (data) {
@@ -396,6 +432,12 @@ document.addEventListener("DOMContentLoaded", handleRoute);
                 removeError();
                 appendAi(data.message, { urgency: data.urgency });
                 appendCareOptions(data.care_options);
+                appendSponsoredHospital(data.sponsored_hospital);
+                appendConfidence(data.confidence, data.document_grounded, data.document_name);
+                if (requestFile) {
+                    els.pdf.value = "";
+                    els.pdfName.textContent = "";
+                }
                 if (data.safety_flag) showEmergencyBanner();
             })
             .catch(function () {
@@ -419,6 +461,8 @@ document.addEventListener("DOMContentLoaded", handleRoute);
         state.conversationId = null;
         state.history = [];
         state.lastFailedText = null;
+        els.pdf.value = "";
+        els.pdfName.textContent = "";
         state.loading = false;
         removeError();
         var stale = els.messages.querySelectorAll(".ai-msg, .ai-msg-error, #aiEmergencyBanner");
@@ -448,6 +492,17 @@ document.addEventListener("DOMContentLoaded", handleRoute);
     });
 
     els.clear.addEventListener("click", clearConversation);
+
+    els.pdf.addEventListener("change", function () {
+        var file = els.pdf.files && els.pdf.files[0];
+        if (!file) { els.pdfName.textContent = ""; return; }
+        if (file.type !== "application/pdf" || file.size > 5 * 1024 * 1024) {
+            els.pdf.value = "";
+            els.pdfName.textContent = "Choose a PDF smaller than 5 MB";
+            return;
+        }
+        els.pdfName.textContent = file.name;
+    });
 
     document.querySelectorAll(".ai-chip").forEach(function (chip) {
         chip.addEventListener("click", function () {
