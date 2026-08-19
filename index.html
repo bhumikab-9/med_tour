@@ -157,6 +157,11 @@
                     </div>
 
                     <div class="ai-input-meta">
+                        <label class="ai-file-label" for="aiPdf" title="Attach a PDF medical report for document-grounded guidance">
+                            <span aria-hidden="true">📎</span> Attach PDF
+                        </label>
+                        <input id="aiPdf" class="sr-only" type="file" accept="application/pdf">
+                        <span id="aiPdfName" class="ai-pdf-name" aria-live="polite"></span>
                         <span class="ai-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a new line</span>
                         <span class="ai-count" id="aiCharCount">0 / 2000</span>
                     </div>

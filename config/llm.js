@@ -25,9 +25,10 @@ function getApiKey() {
 
 /**
  * @param {Array<{role:'user'|'model', parts:Array<{text:string}>}>} history
+ * @param {{mimeType:string,data:string,name?:string}|undefined} document
  * @returns {Promise<{ text: string, model: string }>}
  */
-async function chat({ systemPrompt, history, maxOutputTokens = 2048, timeoutMs = 45000 }) {
+async function chat({ systemPrompt, history, document, maxOutputTokens = 2048, timeoutMs = 45000 }) {
     const apiKey = getApiKey();
     const primaryModel = (process.env.GEMINI_MODEL || DEFAULT_MODEL).trim();
     const models = [primaryModel, ...FALLBACK_MODELS].filter((m, i, arr) => arr.indexOf(m) === i);
@@ -36,7 +37,7 @@ async function chat({ systemPrompt, history, maxOutputTokens = 2048, timeoutMs =
 
     for (const model of models) {
         try {
-            const text = await callModel({ apiKey, model, systemPrompt, history, maxOutputTokens, timeoutMs });
+            const text = await callModel({ apiKey, model, systemPrompt, history, document, maxOutputTokens, timeoutMs });
             return { text, model };
         } catch (err) {
             // Transient upstream failures (5xx, overload, not-found model) should fall through.
@@ -47,15 +48,22 @@ async function chat({ systemPrompt, history, maxOutputTokens = 2048, timeoutMs =
     throw new Error("All model attempts failed: " + lastError.message);
 }
 
-async function callModel({ apiKey, model, systemPrompt, history, maxOutputTokens, timeoutMs }) {
+async function callModel({ apiKey, model, systemPrompt, history, document, maxOutputTokens, timeoutMs }) {
     const url = `${BASE_URL}/${encodeURIComponent(model)}:generateContent`;
+
+    const contents = history.map((h) => ({
+        role: h.role === "model" ? "model" : "user",
+        parts: h.parts.map((part) => ({ ...part })),
+    }));
+    if (document && contents.length) {
+        contents[contents.length - 1].parts.push({
+            inlineData: { mimeType: document.mimeType, data: document.data },
+        });
+    }
 
     const payload = {
         system_instruction: { parts: [{ text: systemPrompt }] },
-        contents: history.map((h) => ({
-            role: h.role === "model" ? "model" : "user",
-            parts: h.parts,
-        })),
+        contents,
         generationConfig: {
             temperature: 0.3,
             topP: 0.95,
