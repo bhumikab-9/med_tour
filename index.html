@@ -27,8 +27,6 @@
             <a href="#">Doctors</a>
             <a href="compareCost.html">compareCost</a>
             <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
-            <a href="#ai-assistant" onclick="navigate(event, '#ai-assistant')">AI Health Assistant</a>
-            <a href="#">How It Works</a>
         </nav>
 
         <div class="nav-actions">
@@ -51,126 +49,6 @@
         <section id="route-compare-cost"
             style="display: none; padding: 150px 8%; text-align: center; min-height: 60vh;">
             <h1 style="color: var(--navy); font-size: 48px;">Compare Cost</h1>
-        </section>
-
-
-        <!-- ================= AI HEALTH ASSISTANT ================= -->
-
-        <section id="route-ai-assistant" class="ai-route" style="display: none;" aria-label="AI Health Assistant">
-
-            <div class="ai-shell">
-
-                <header class="ai-header">
-
-                    <div class="ai-header-left">
-                        <div class="ai-avatar" aria-hidden="true">✚</div>
-                        <div class="ai-header-text">
-                            <h1>AI Health Assistant</h1>
-                            <p>Medical information &amp; triage guidance</p>
-                        </div>
-                    </div>
-
-                    <button type="button" class="ai-clear-btn" id="aiClearBtn" title="Start a new conversation">
-                        <span aria-hidden="true">↺</span> New conversation
-                    </button>
-
-                </header>
-
-
-                <div class="ai-messages" id="aiMessages" role="log" aria-live="polite" aria-relevant="additions">
-
-                    <!-- EMPTY STATE -->
-                    <div class="ai-empty" id="aiEmptyState">
-
-                        <div class="ai-empty-icon" aria-hidden="true">🩺</div>
-
-                        <h2>How can I help you today?</h2>
-
-                        <p>
-                            Describe your symptoms or health concern and I'll help you
-                            understand possible causes, warning signs and next steps.
-                        </p>
-
-                        <div class="ai-suggestions" role="list" aria-label="Suggested questions">
-
-                            <button type="button" class="ai-chip"
-                                data-prompt="I have chest pain. Help me understand how urgent this may be and what I should do next.">
-                                Check a symptom
-                            </button>
-
-                            <button type="button" class="ai-chip"
-                                data-prompt="Explain the main treatment options for knee replacement in India, what recovery usually involves, and what questions I should ask a hospital.">
-                                Understand a treatment
-                            </button>
-
-                            <button type="button" class="ai-chip"
-                                data-prompt="Help me prepare a concise summary and question list for a doctor visit about recurring headaches.">
-                                Prepare for a doctor visit
-                            </button>
-
-                            <button type="button" class="ai-chip"
-                                data-prompt="I have dizziness and unusual fatigue. What details should I track before speaking with a doctor, and what warning signs matter?">
-                                Track symptoms
-                            </button>
-
-                            <button type="button" class="ai-chip"
-                                data-prompt="What symptoms mean I should seek emergency medical care right away in India?">
-                                Know emergency warning signs
-                            </button>
-
-                        </div>
-
-                        <p class="ai-empty-note">
-                            These are example questions only — the assistant does not provide a diagnosis.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SAFETY DISCLAIMER -->
-                <div class="ai-disclaimer" role="note">
-                    <span aria-hidden="true">ℹ</span>
-                    <p>
-                        AI Health Assistant provides general health information and does not
-                        replace a qualified healthcare professional. For emergencies or severe
-                        symptoms, seek immediate medical care.
-                    </p>
-                </div>
-
-
-                <!-- INPUT AREA -->
-                <form class="ai-input" id="aiForm" novalidate>
-
-                    <label class="sr-only" for="aiInput">Message</label>
-
-                    <div class="ai-input-wrap">
-
-                        <textarea id="aiInput" rows="1" maxlength="2000"
-                            placeholder="Describe your symptoms, health concerns, or medical question..."
-                            aria-describedby="aiCharCount"></textarea>
-
-                        <button type="submit" class="ai-send" id="aiSendBtn" aria-label="Send message" disabled>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"
-                                focusable="false">
-                                <path d="M3 11.5 21 3 12.5 21 10.6 13.4 3 11.5Z" stroke="currentColor"
-                                    stroke-width="1.8" stroke-linejoin="round" />
-                            </svg>
-                        </button>
-
-                    </div>
-
-                    <div class="ai-input-meta">
-                        <span class="ai-hint">Press <kbd>Enter</kbd> to send · <kbd>Shift</kbd>+<kbd>Enter</kbd> for a
-                            new line</span>
-                        <span class="ai-count" id="aiCharCount">0 / 2000</span>
-                    </div>
-
-                </form>
-
-            </div>
-
         </section>
 
         <section class="hero">
@@ -708,33 +586,7 @@
         </section>
 
 
-        <!-- ================= AI ASSISTANT ================= -->
 
-        <section class="assistant-banner">
-
-            <div class="assistant-icon">
-                ✦
-            </div>
-
-            <div class="assistant-text">
-
-                <span>MEDTOUR AI</span>
-
-                <h2>Not sure where to start?</h2>
-
-                <p>
-                    Tell us what you're looking for and
-                    our AI assistant can help you explore
-                    your options.
-                </p>
-
-            </div>
-
-            <button class="assistant-btn" onclick="navigate(event, '#ai-assistant')">
-                Ask MedTour AI →
-            </button>
-
-        </section>
 
     </main>
 
@@ -768,7 +620,6 @@
                 <a href="#hospitals" onclick="navigate(event, '#hospitals')">Hospitals</a>
                 <a href="#">Doctors</a>
                 <a href="#compare-cost" onclick="navigate(event, '#compare-cost')">Compare</a>
-                <a href="#ai-assistant" onclick="navigate(event, '#ai-assistant')">AI Health Assistant</a>
 
             </div>
 

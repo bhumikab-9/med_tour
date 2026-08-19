@@ -768,7 +768,7 @@ function loadTreatmentDetails() {
                 window.currentTreatmentName = dbTreatment.name;
             }
         })
-        .catch(function (err) { console.error('Error loading treatment details:', err); });
+        .catch(function(err) { console.error('Error loading treatment details:', err); });
 }
 
 
@@ -800,8 +800,8 @@ function initializeTreatmentsPage() {
     if (!grid) return;
 
     fetch('http://localhost:5000/api/treatments')
-        .then(function (res) { return res.json(); })
-        .then(function (treatments) {
+        .then(function(res) { return res.json(); })
+        .then(function(treatments) {
             if (!treatments || treatments.length === 0) {
                 grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px;">No treatments found.</div>';
                 return;
@@ -832,20 +832,20 @@ function initializeTreatmentsPage() {
             var specialtyGrid = document.getElementById('specialtyGrid');
             if (specialtyGrid) {
                 specialtyGrid.innerHTML = '';
-                treatments.slice(0, 5).forEach(function (t) {
+                treatments.slice(0, 5).forEach(function(t) {
                     var dbInfo = treatmentDatabase[t.name] || {};
                     var icon = dbInfo.icon || fallbackIcons[t.name] || '\u{1F3E5}';
                     var btn = document.createElement('button');
                     btn.className = 'specialty-card';
                     btn.innerHTML = '<span class="specialty-icon">' + icon + '</span><strong>' + t.name + '</strong><small>' + (t.description || '') + '</small>';
-                    btn.addEventListener('click', (function (name) { return function () { viewTreatment(name); }; })(t.name));
+                    btn.addEventListener('click', (function(name) { return function() { viewTreatment(name); }; })(t.name));
                     specialtyGrid.appendChild(btn);
                 });
             }
 
             /* Populate treatment cards */
             grid.innerHTML = '';
-            treatments.forEach(function (t) {
+            treatments.forEach(function(t) {
                 var dbInfo = treatmentDatabase[t.name] || {};
                 var category = dbInfo.category || 'GENERAL';
                 var specialty = dbInfo.category ? (dbInfo.category.charAt(0) + dbInfo.category.slice(1).toLowerCase()) : 'General';
@@ -877,8 +877,8 @@ function initializeTreatmentsPage() {
                     '<button class="details-btn hospitals-btn" style="flex: 1;">View Hospitals</button>' +
                     '</div>' +
                     '</div>';
-                article.querySelector('.details-btn').addEventListener('click', (function (name) { return function () { viewTreatment(name); }; })(t.name));
-                article.querySelector('.hospitals-btn').addEventListener('click', (function (id, name) { return function () { window.location.href = 'hospitals_by_treatment.html?id=' + id + '&name=' + encodeURIComponent(name); }; })(t.id, t.name));
+                article.querySelector('.details-btn').addEventListener('click', (function(name) { return function() { viewTreatment(name); }; })(t.name));
+                article.querySelector('.hospitals-btn').addEventListener('click', (function(id, name) { return function() { window.location.href = 'hospitals_by_treatment.html?id=' + id + '&name=' + encodeURIComponent(name); }; })(t.id, t.name));
                 grid.appendChild(article);
             });
 
@@ -886,7 +886,7 @@ function initializeTreatmentsPage() {
             initializeTreatmentSearchEvents();
             initializeTreatmentsSearch();
         })
-        .catch(function (err) {
+        .catch(function(err) {
             grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px;color:red;">Failed to load. Is the server running?</div>';
             console.error(err);
         });
