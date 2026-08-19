@@ -5,38 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Explore Treatments - MedTour India</title>
+    <title>Medical Treatments | MedTour India</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
+
     <header class="navbar">
 
-        <div class="logo">
-            <span>+</span> MedTour India
-        </div>
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="treatments.html">Treatments</a>
-            <a href="hospitals.html">Hospitals</a>
-            <a href="doctors.html">Doctors</a>
-            <a href="compare.html">Compare</a>
-            <a href="assistant.html">AI Assistant</a>
+            <span>
+                MedTour<span class="logo-india">India</span>
+            </span>
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="treatments.html" class="active-link">
+                Treatments
+            </a>
+
+            <a href="index.html#hospitals">Hospitals</a>
+
+            <a href="#">Doctors</a>
+
+            <a href="index.html#compare-cost">Compare</a>
+
+            <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
+
         </nav>
 
-        <a href="consultation.html" class="nav-btn">
-            Book Consultation
-        </a>
+
+        <div class="nav-actions">
+
+            <button class="language-btn">
+                🌐 EN
+            </button>
+
+            <button class="login-btn">
+                Login
+            </button>
+
+        </div>
 
     </header>
 
 
-    <!-- PAGE HEADER -->
+    <!-- ================= PAGE HERO ================= -->
+
+    <section class="treatments-hero">
+
+        <div class="treatments-hero-content">
+
+            <!-- PAGE HEADER -->
     <section class="page-header">
+
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(13,159,145,0.2); border: 1px solid rgba(13,159,145,0.3); color: black; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 20px;">
+            ✈️ International Patient Services Available
+        </div>
 
         <p class="small-title">EXPLORE HEALTHCARE</p>
 
@@ -44,229 +76,764 @@
 
         <p>
             Explore treatments, compare estimated costs
-            and find trusted healthcare providers.
+            and find trusted healthcare providers in India. Our dedicated international desk assists with medical visas, travel, and translation.
         </p>
 
     </section>
 
 
-    <!-- SEARCH + FILTERS -->
-    <section class="treatment-section">
+            <!-- Search -->
 
-        <div class="treatment-search">
+            <div class="treatment-search">
 
-            <input
-                type="text"
-                id="treatmentSearch"
-                placeholder="Search treatments..."
+                <span>⌕</span>
+
+                <input
+                    type="text"
+                    id="treatmentSearch"
+                    placeholder="Search treatments..."
+                >
+
+                <button onclick="searchTreatmentButton()">
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="treatments-page">
+
+        <!-- Categories -->
+
+        <section class="category-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        BROWSE BY SPECIALTY
+                    </span>
+
+                    <h2>
+                        Medical Specialties
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="specialty-grid">
+
+                <button class="specialty-card"
+                    onclick="selectSpecialty('Cardiology')">
+
+                    <span class="specialty-icon">
+                        ❤️
+                    </span>
+
+                    <strong>
+                        Cardiology
+                    </strong>
+
+                    <small>
+                        Heart & cardiovascular care
+                    </small>
+
+                </button>
+
+
+                <button class="specialty-card"
+                    onclick="selectSpecialty('Orthopedics')">
+
+                    <span class="specialty-icon">
+                        🦴
+                    </span>
+
+                    <strong>
+                        Orthopedics
+                    </strong>
+
+                    <small>
+                        Bones, joints & mobility
+                    </small>
+
+                </button>
+
+
+                <button class="specialty-card"
+                    onclick="selectSpecialty('Neurology')">
+
+                    <span class="specialty-icon">
+                        🧠
+                    </span>
+
+                    <strong>
+                        Neurology
+                    </strong>
+
+                    <small>
+                        Brain & nervous system
+                    </small>
+
+                </button>
+
+
+                <button class="specialty-card"
+                    onclick="selectSpecialty('Oncology')">
+
+                    <span class="specialty-icon">
+                        🧬
+                    </span>
+
+                    <strong>
+                        Oncology
+                    </strong>
+
+                    <small>
+                        Cancer diagnosis & treatment
+                    </small>
+
+                </button>
+
+
+                <button class="specialty-card"
+                    onclick="selectSpecialty('Fertility')">
+
+                    <span class="specialty-icon">
+                        👶
+                    </span>
+
+                    <strong>
+                        Fertility
+                    </strong>
+
+                    <small>
+                        IVF & reproductive care
+                    </small>
+
+                </button>
+
+
+                <button class="specialty-card"
+                    onclick="selectSpecialty('Dental')">
+
+                    <span class="specialty-icon">
+                        🦷
+                    </span>
+
+                    <strong>
+                        Dental
+                    </strong>
+
+                    <small>
+                        Dental & oral care
+                    </small>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= TREATMENT LIST ================= -->
+
+        <section class="treatment-list-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        EXPLORE
+                    </span>
+
+                    <h2>
+                        Popular Treatments
+                    </h2>
+
+                    <p>
+                        Compare common procedures and
+                        estimated treatment costs.
+                    </p>
+
+                </div>
+
+
+                <div class="sort-box">
+
+                    <label for="sortTreatments">
+                        Sort by
+                    </label>
+
+                    <select id="sortTreatments">
+                        <option value="popular">
+                            Most Popular
+                        </option>
+
+                        <option value="price-low">
+                            Price: Low to High
+                        </option>
+
+                        <option value="price-high">
+                            Price: High to Low
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="full-treatment-grid"
+                id="treatmentGrid"
             >
 
-            <select id="cityFilter">
-                <option value="all">All Cities</option>
-                <option value="delhi">Delhi</option>
-                <option value="mumbai">Mumbai</option>
-                <option value="chennai">Chennai</option>
-                <option value="bangalore">Bangalore</option>
-            </select>
+                <!-- Card 1 -->
 
-            <button onclick="filterTreatments()">
-                Search
-            </button>
+                <article
+                    class="full-treatment-card"
+                    data-name="Heart Bypass Surgery"
+                    data-specialty="Cardiology"
+                    data-price="250000"
+                >
 
-        </div>
+                    <div class="full-treatment-icon cardiac">
+                        ❤️
+                    </div>
+
+                    <div class="full-treatment-content">
+
+                        <span class="category">
+                            CARDIOLOGY
+                        </span>
+
+                        <h3>
+                            Heart Bypass Surgery
+                        </h3>
+
+                        <p>
+                            Surgical treatment to improve
+                            blood flow to the heart.
+                        </p>
 
 
-        <!-- TREATMENT CARDS -->
-        <div class="treatment-list" id="treatmentList">
+                        <div class="treatment-details">
+
+                            <div>
+                                <small>
+                                    Estimated cost
+                                </small>
+
+                                <strong>
+                                    ₹2.5L – ₹4.5L
+                                </strong>
+                            </div>
+
+                            <div>
+                                <small>
+                                    Typical stay
+                                </small>
+
+                                <strong>
+                                    5–8 days
+                                </strong>
+                            </div>
+
+                        </div>
 
 
-            <!-- CARD 1 -->
-            <div class="treatment-item" data-city="delhi">
-
-                <div class="treatment-image">
-                    🦷
-                </div>
-
-                <div class="treatment-info">
-
-                    <p class="treatment-category">
-                        DENTAL
-                    </p>
-
-                    <h2>Dental Implant</h2>
-
-                    <p>
-                        Replace missing teeth with modern
-                        dental implant procedures.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Delhi</span>
-
-                        <span>💰 ₹60,000 - ₹90,000</span>
-
-                        <span>⏱ 1-2 Days</span>
+                        <button
+                            class="details-btn"
+                            onclick="viewTreatment('Heart Bypass Surgery')"
+                        >
+                            View Treatment →
+                        </button>
 
                     </div>
 
-                    <a
-                        href="treatment-details.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
+                </article>
 
-                </div>
+
+                <!-- Card 2 -->
+
+                <article
+                    class="full-treatment-card"
+                    data-name="Knee Replacement"
+                    data-specialty="Orthopedics"
+                    data-price="150000"
+                >
+
+                    <div class="full-treatment-icon ortho">
+                        🦴
+                    </div>
+
+                    <div class="full-treatment-content">
+
+                        <span class="category">
+                            ORTHOPEDICS
+                        </span>
+
+                        <h3>
+                            Knee Replacement
+                        </h3>
+
+                        <p>
+                            Replacement of a damaged knee
+                            joint with an artificial implant.
+                        </p>
+
+
+                        <div class="treatment-details">
+
+                            <div>
+                                <small>
+                                    Estimated cost
+                                </small>
+
+                                <strong>
+                                    ₹1.5L – ₹3.5L
+                                </strong>
+                            </div>
+
+                            <div>
+                                <small>
+                                    Typical stay
+                                </small>
+
+                                <strong>
+                                    3–5 days
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            onclick="viewTreatment('Knee Replacement')"
+                        >
+                            View Treatment →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Card 3 -->
+
+                <article
+                    class="full-treatment-card"
+                    data-name="IVF Treatment"
+                    data-specialty="Fertility"
+                    data-price="100000"
+                >
+
+                    <div class="full-treatment-icon fertility">
+                        🧬
+                    </div>
+
+                    <div class="full-treatment-content">
+
+                        <span class="category">
+                            FERTILITY
+                        </span>
+
+                        <h3>
+                            IVF Treatment
+                        </h3>
+
+                        <p>
+                            Assisted reproductive treatment
+                            to help achieve pregnancy.
+                        </p>
+
+
+                        <div class="treatment-details">
+
+                            <div>
+                                <small>
+                                    Estimated cost
+                                </small>
+
+                                <strong>
+                                    ₹1L – ₹2.5L
+                                </strong>
+                            </div>
+
+                            <div>
+                                <small>
+                                    Treatment cycle
+                                </small>
+
+                                <strong>
+                                    2–4 weeks
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            onclick="viewTreatment('IVF Treatment')"
+                        >
+                            View Treatment →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Card 4 -->
+
+                <article
+                    class="full-treatment-card"
+                    data-name="Dental Implants"
+                    data-specialty="Dental"
+                    data-price="60000"
+                >
+
+                    <div class="full-treatment-icon dental">
+                        🦷
+                    </div>
+
+                    <div class="full-treatment-content">
+
+                        <span class="category">
+                            DENTAL
+                        </span>
+
+                        <h3>
+                            Dental Implants
+                        </h3>
+
+                        <p>
+                            Permanent tooth replacement using
+                            modern dental implants.
+                        </p>
+
+
+                        <div class="treatment-details">
+
+                            <div>
+                                <small>
+                                    Estimated cost
+                                </small>
+
+                                <strong>
+                                    ₹60K – ₹1.5L
+                                </strong>
+                            </div>
+
+                            <div>
+                                <small>
+                                    Typical duration
+                                </small>
+
+                                <strong>
+                                    1–3 months
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            onclick="viewTreatment('Dental Implants')"
+                        >
+                            View Treatment →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Card 5 -->
+
+                <article
+                    class="full-treatment-card"
+                    data-name="Brain Tumor Surgery"
+                    data-specialty="Neurology"
+                    data-price="300000"
+                >
+
+                    <div class="full-treatment-icon neurology">
+                        🧠
+                    </div>
+
+                    <div class="full-treatment-content">
+
+                        <span class="category">
+                            NEUROLOGY
+                        </span>
+
+                        <h3>
+                            Brain Tumor Surgery
+                        </h3>
+
+                        <p>
+                            Specialized neurosurgical treatment
+                            for selected brain tumors.
+                        </p>
+
+
+                        <div class="treatment-details">
+
+                            <div>
+                                <small>
+                                    Estimated cost
+                                </small>
+
+                                <strong>
+                                    ₹3L – ₹7L
+                                </strong>
+                            </div>
+
+                            <div>
+                                <small>
+                                    Typical stay
+                                </small>
+
+                                <strong>
+                                    7–14 days
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            onclick="viewTreatment('Brain Tumor Surgery')"
+                        >
+                            View Treatment →
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Card 6 -->
+
+                <article
+                    class="full-treatment-card"
+                    data-name="Cancer Treatment"
+                    data-specialty="Oncology"
+                    data-price="200000"
+                >
+
+                    <div class="full-treatment-icon oncology">
+                        🎗️
+                    </div>
+
+                    <div class="full-treatment-content">
+
+                        <span class="category">
+                            ONCOLOGY
+                        </span>
+
+                        <h3>
+                            Cancer Treatment
+                        </h3>
+
+                        <p>
+                            Treatment options including surgery,
+                            chemotherapy and radiation.
+                        </p>
+
+
+                        <div class="treatment-details">
+
+                            <div>
+                                <small>
+                                    Estimated cost
+                                </small>
+
+                                <strong>
+                                    ₹2L – ₹8L+
+                                </strong>
+                            </div>
+
+                            <div>
+                                <small>
+                                    Duration
+                                </small>
+
+                                <strong>
+                                    Varies
+                                </strong>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="details-btn"
+                            onclick="viewTreatment('Cancer Treatment')"
+                        >
+                            View Treatment →
+                        </button>
+
+                    </div>
+
+                </article>
 
             </div>
 
 
-            <!-- CARD 2 -->
-            <div class="treatment-item" data-city="mumbai">
+            <!-- No results -->
 
-                <div class="treatment-image">
-                    🧬
-                </div>
+            <div
+                id="noTreatments"
+                class="no-results"
+            >
+                <span>🔎</span>
 
-                <div class="treatment-info">
+                <h3>
+                    No treatments found
+                </h3>
 
-                    <p class="treatment-category">
-                        FERTILITY
-                    </p>
-
-                    <h2>IVF Treatment</h2>
-
-                    <p>
-                        Advanced fertility treatment from
-                        experienced specialists.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Mumbai</span>
-
-                        <span>💰 ₹1,00,000 - ₹1,80,000</span>
-
-                        <span>⏱ 2-4 Weeks</span>
-
-                    </div>
-
-                    <a
-                        href="treatment-details.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
-
-                </div>
+                <p>
+                    Try searching for another treatment
+                    or specialty.
+                </p>
 
             </div>
 
+        </section>
 
-            <!-- CARD 3 -->
-            <div class="treatment-item" data-city="chennai">
-
-                <div class="treatment-image">
-                    🦴
-                </div>
-
-                <div class="treatment-info">
-
-                    <p class="treatment-category">
-                        ORTHOPEDIC
-                    </p>
-
-                    <h2>Knee Replacement</h2>
-
-                    <p>
-                        Advanced joint replacement procedures
-                        by experienced orthopedic surgeons.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Chennai</span>
-
-                        <span>💰 ₹1,50,000 - ₹2,50,000</span>
-
-                        <span>⏱ 5-7 Days</span>
-
-                    </div>
-
-                    <a
-                        href="treatment-details.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
-
-                </div>
-
-            </div>
+    </main>
 
 
-            <!-- CARD 4 -->
-            <div class="treatment-item" data-city="bangalore">
+    <!-- ================= FOOTER ================= -->
 
-                <div class="treatment-image">
-                    ✨
-                </div>
-
-                <div class="treatment-info">
-
-                    <p class="treatment-category">
-                        COSMETIC
-                    </p>
-
-                    <h2>Hair Transplant</h2>
-
-                    <p>
-                        Modern hair restoration procedures
-                        performed by specialists.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Bangalore</span>
-
-                        <span>💰 ₹50,000 - ₹1,20,000</span>
-
-                        <span>⏱ 1-3 Days</span>
-
-                    </div>
-
-                    <a
-                        href="treatment-details.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
     <footer>
 
-        <div class="footer-logo">
-            <span>+</span> MedTour India
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo footer-logo">
+
+                    <span class="logo-icon">
+                        +
+                    </span>
+
+                    <span>
+                        MedTour<span class="logo-india">
+                            India
+                        </span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Making healthcare discovery simpler,
+                    clearer and more accessible.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Explore
+                </h4>
+
+                <a href="treatments.html">
+                    Treatments
+                </a>
+
+                <a href="#">
+                    Hospitals
+                </a>
+
+                <a href="#">
+                    Doctors
+                </a>
+
+                <a href="#">
+                    Compare
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="#">
+                    About Us
+                </a>
+
+                <a href="#">
+                    How It Works
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+                <a href="#">
+                    FAQs
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Support
+                </h4>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+                <a href="#">
+                    Terms
+                </a>
+
+            </div>
+
         </div>
 
-        <p>
-            Helping patients discover healthcare
-            options across India.
-        </p>
 
-        <p class="copyright">
-            © 2026 MedTour India
-        </p>
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 MedTour India
+            </span>
+
+            <span>
+                Built for better healthcare discovery.
+            </span>
+
+        </div>
 
     </footer>
 
