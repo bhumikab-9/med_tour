@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,11 +22,11 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(13,159,145,0.15) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(13, 159, 145, 0.15) 0%, transparent 60%);
             z-index: 0;
         }
 
-        .appointment-hero > * {
+        .appointment-hero>* {
             position: relative;
             z-index: 1;
         }
@@ -54,7 +55,9 @@
             margin-bottom: 8px;
         }
 
-        .form-group input, .form-group select, .form-group textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
             padding: 14px 18px;
             border: 1px solid var(--border);
@@ -64,10 +67,12 @@
             transition: all 0.3s ease;
         }
 
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: var(--teal);
-            box-shadow: 0 0 0 4px rgba(13,159,145,0.1);
+            box-shadow: 0 0 0 4px rgba(13, 159, 145, 0.1);
             background: var(--white);
         }
 
@@ -97,7 +102,7 @@
         .submit-btn:hover {
             background: var(--teal-dark);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(13,159,145,0.2);
+            box-shadow: 0 10px 20px rgba(13, 159, 145, 0.2);
         }
 
         .international-badge {
@@ -111,10 +116,11 @@
             font-size: 13px;
             font-weight: 600;
             margin-bottom: 25px;
-            border: 1px solid rgba(13,159,145,0.2);
+            border: 1px solid rgba(13, 159, 145, 0.2);
         }
     </style>
 </head>
+
 <body style="background: var(--background);">
 
     <!-- NAVBAR -->
@@ -140,7 +146,8 @@
         <section class="appointment-hero">
             <h1>Book Your Medical Trip</h1>
             <p style="color: #a9bbc9; max-width: 500px; margin: 15px auto 0;">
-                Schedule your consultation with top specialists in India. Our international patient team will assist you with visas, travel, and translation.
+                Schedule your consultation with top specialists in India. Our international patient team will assist you
+                with visas, travel, and translation.
             </p>
         </section>
 
@@ -148,9 +155,10 @@
             <div class="international-badge">
                 ✈️ Priority International Patient Desk
             </div>
-            
-            <form onsubmit="event.preventDefault(); alert('Appointment request submitted successfully! Our international desk will contact you shortly.'); window.location.href='index.html';">
-                
+
+            <form
+                onsubmit="event.preventDefault(); alert('Appointment request submitted successfully! Our international desk will contact you shortly.'); window.location.href='index.html';">
+
                 <div class="form-group">
                     <label for="username">Username (Full Name)</label>
                     <input type="text" id="username" placeholder="Enter your full name" required>
@@ -186,8 +194,22 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="hospital">Preferred Hospital</label>
+                    <select id="hospital">
+                        <option value="" disabled selected>Select a hospital (Optional)...</option>
+                        <option value="apollo">Apollo Hospitals</option>
+                        <option value="fortis">Fortis Healthcare</option>
+                        <option value="medanta">Medanta</option>
+                        <option value="manipal">Manipal Hospitals</option>
+                        <option value="max">Max Super Speciality Hospital</option>
+                        <option value="no_preference">No Preference / Help me choose</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="notes">Additional Requirements (Visa, Translator, Transport)</label>
-                    <textarea id="notes" rows="4" placeholder="Let us know how we can assist your travel and stay in India..."></textarea>
+                    <textarea id="notes" rows="4"
+                        placeholder="Let us know how we can assist your travel and stay in India..."></textarea>
                 </div>
 
                 <button type="submit" class="submit-btn">Request Appointment</button>
@@ -206,11 +228,13 @@
                 <p>Making healthcare discovery simpler, clearer and more accessible.</p>
             </div>
         </div>
-        <div class="footer-bottom" style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align:center;">
+        <div class="footer-bottom"
+            style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align:center;">
             <span>© 2026 MedTour India</span>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>

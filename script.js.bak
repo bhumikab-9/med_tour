@@ -1,4 +1,4 @@
-/* =========================================
+﻿/* =========================================
    HOMEPAGE SEARCH
 ========================================= */
 
@@ -270,7 +270,7 @@ function sortTreatments() {
         sortSelect.value;
 
 
-    /* Price: Low → High */
+    /* Price: Low ΓåÆ High */
 
     if (sortValue === "price-low") {
 
@@ -285,7 +285,7 @@ function sortTreatments() {
     }
 
 
-    /* Price: High → Low */
+    /* Price: High ΓåÆ Low */
 
     else if (sortValue === "price-high") {
 
@@ -485,13 +485,13 @@ const treatmentDatabase = {
         description:
             "Surgical treatment to improve blood flow to the heart.",
 
-        icon: "❤️",
+        icon: "Γ¥ñ∩╕Å",
 
-        cost: "₹2.5L – ₹4.5L",
+        cost: "Γé╣2.5L ΓÇô Γé╣4.5L",
 
-        stay: "5–8 days",
+        stay: "5ΓÇô8 days",
 
-        recovery: "4–6 weeks",
+        recovery: "4ΓÇô6 weeks",
 
         overviewTitle:
             "What is Heart Bypass Surgery?",
@@ -521,13 +521,13 @@ const treatmentDatabase = {
         description:
             "Replacement of a damaged knee joint with an artificial implant.",
 
-        icon: "🦴",
+        icon: "≡ƒª┤",
 
-        cost: "₹1.5L – ₹3.5L",
+        cost: "Γé╣1.5L ΓÇô Γé╣3.5L",
 
-        stay: "3–5 days",
+        stay: "3ΓÇô5 days",
 
-        recovery: "6–12 weeks",
+        recovery: "6ΓÇô12 weeks",
 
         overviewTitle:
             "What is knee replacement?",
@@ -557,11 +557,11 @@ const treatmentDatabase = {
         description:
             "Assisted reproductive treatment to help achieve pregnancy.",
 
-        icon: "🧬",
+        icon: "≡ƒº¼",
 
-        cost: "₹1L – ₹2.5L",
+        cost: "Γé╣1L ΓÇô Γé╣2.5L",
 
-        stay: "2–4 weeks (cycle)",
+        stay: "2ΓÇô4 weeks (cycle)",
 
         recovery: "Variable",
 
@@ -594,11 +594,11 @@ const treatmentDatabase = {
         description:
             "Permanent tooth replacement using modern dental implants.",
 
-        icon: "🦷",
+        icon: "≡ƒª╖",
 
-        cost: "₹60K – ₹1.5L",
+        cost: "Γé╣60K ΓÇô Γé╣1.5L",
 
-        stay: "1–3 months",
+        stay: "1ΓÇô3 months",
 
         recovery: "1-2 weeks",
 
@@ -631,9 +631,9 @@ const treatmentDatabase = {
         description:
             "Specialized neurosurgical treatment for selected brain tumors.",
 
-        icon: "🧠",
+        icon: "≡ƒºá",
 
-        cost: "₹3L – ₹7L",
+        cost: "Γé╣3L ΓÇô Γé╣7L",
 
         stay: "7-14 days",
 
@@ -678,97 +678,214 @@ function viewTreatment(treatmentName) {
 
 function loadTreatmentDetails() {
 
-    if (!window.location.href.includes("treatments-details")) {
+    if (
+        !window.location.href.includes(
+            "treatments-details"
+        )
+    ) {
         return;
     }
 
-    const params = new URLSearchParams(window.location.search);
-    const treatmentName = params.get("treatment");
 
-    if (!treatmentName) return;
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
-    fetch('http://localhost:5000/api/treatments')
-        .then(res => res.json())
-        .then(treatments => {
-            const dbTreatment = treatments.find(t => t.name === treatmentName);
-            const dbInfo = treatmentDatabase[treatmentName] || {};
 
-            const title = dbTreatment ? dbTreatment.name : (dbInfo.title || treatmentName);
-            const description = dbTreatment ? dbTreatment.description : (dbInfo.description || 'Detailed overview of the treatment.');
-            const category = dbInfo.category || 'GENERAL';
-            const cost = dbInfo.cost || 'Varies';
-            const stay = dbInfo.stay || 'Varies';
-            const recovery = dbInfo.recovery || 'Varies';
-            const icon = dbInfo.icon || '\uD83C\uDFE5';
-            const procedureType = dbInfo.procedureType || 'Medical Procedure';
-            const overviewTitle = dbInfo.overviewTitle || ('What is ' + title + '?');
-            const overviewText1 = dbInfo.overviewText1 || description;
-            const overviewText2 = dbInfo.overviewText2 || 'Please consult with our specialists for a comprehensive understanding of the procedure.';
-            const faq1 = dbInfo.faq1 || ('How much does ' + title + ' cost in India?');
-            const faq2 = dbInfo.faq2 || 'What is the success rate?';
+    const treatmentName =
+        params.get("treatment");
 
-            var el;
 
-            /* Breadcrumb */
-            var breadcrumbs = document.querySelectorAll('.breadcrumb span');
-            if (breadcrumbs.length > 2) breadcrumbs[2].textContent = title;
+    if (
+        treatmentName &&
+        treatmentDatabase[treatmentName]
+    ) {
 
-            /* Category */
-            el = document.querySelector('.details-hero-content .category');
-            if (el) el.textContent = category;
+        const data =
+            treatmentDatabase[treatmentName];
 
-            /* Title */
-            el = document.querySelector('.details-hero-content h1');
-            if (el) el.textContent = title;
 
-            /* Description */
-            el = document.querySelector('.details-hero-content p');
-            if (el) el.textContent = description;
+        /* Breadcrumb */
 
-            /* Hero Stats */
-            var stats = document.querySelectorAll('.hero-stats div strong');
-            if (stats.length >= 3) {
-                stats[0].textContent = cost;
-                stats[1].textContent = stay;
-                stats[2].textContent = recovery;
-            }
+        const breadcrumbTitle =
+            document.querySelectorAll(
+                ".breadcrumb span"
+            );
 
-            /* Icon */
-            el = document.querySelector('.details-hero-visual .big-treatment-icon');
-            if (el) el.textContent = icon;
 
-            /* Overview */
-            el = document.querySelector('.details-section h2');
-            if (el) el.textContent = overviewTitle;
-            var overviewPs = document.querySelectorAll('.details-section p');
-            if (overviewPs.length >= 2) {
-                overviewPs[0].textContent = overviewText1;
-                overviewPs[1].textContent = overviewText2;
-            }
+        if (breadcrumbTitle.length > 2) {
 
-            /* Quick Facts */
-            var facts = document.querySelectorAll('.facts-card .fact strong');
-            if (facts.length >= 4) {
-                facts[0].textContent = category.charAt(0) + category.slice(1).toLowerCase();
-                facts[1].textContent = procedureType;
-                facts[2].textContent = stay;
-                facts[3].textContent = recovery;
-            }
+            breadcrumbTitle[2].textContent =
+                data.title;
 
-            /* FAQs */
-            var faqs = document.querySelectorAll('.faq-list details summary');
-            if (faqs.length >= 2) {
-                faqs[0].textContent = faq1;
-                faqs[1].textContent = faq2;
-            }
+        }
 
-            /* Store for compare button */
-            if (dbTreatment) {
-                window.currentTreatmentId = dbTreatment.id;
-                window.currentTreatmentName = dbTreatment.name;
-            }
-        })
-        .catch(function(err) { console.error('Error loading treatment details:', err); });
+
+        /* Category */
+
+        const categorySpan =
+            document.querySelector(
+                ".details-hero-content .category"
+            );
+
+
+        if (categorySpan) {
+
+            categorySpan.textContent =
+                data.category;
+
+        }
+
+
+        /* Title */
+
+        const titleH1 =
+            document.querySelector(
+                ".details-hero-content h1"
+            );
+
+
+        if (titleH1) {
+
+            titleH1.textContent =
+                data.title;
+
+        }
+
+
+        /* Description */
+
+        const descP =
+            document.querySelector(
+                ".details-hero-content p"
+            );
+
+
+        if (descP) {
+
+            descP.textContent =
+                data.description;
+
+        }
+
+
+        /* Hero Stats */
+
+        const statStrong =
+            document.querySelectorAll(
+                ".hero-stats div strong"
+            );
+
+
+        if (statStrong.length >= 3) {
+
+            statStrong[0].textContent =
+                data.cost;
+
+            statStrong[1].textContent =
+                data.stay;
+
+            statStrong[2].textContent =
+                data.recovery;
+        }
+
+
+        /* Treatment Icon */
+
+        const iconDiv =
+            document.querySelector(
+                ".details-hero-visual .big-treatment-icon"
+            );
+
+
+        if (iconDiv) {
+
+            iconDiv.textContent =
+                data.icon;
+
+        }
+
+
+        /* Overview */
+
+        const overviewH2 =
+            document.querySelector(
+                ".details-main .details-section:nth-of-type(1) h2"
+            );
+
+
+        if (overviewH2) {
+
+            overviewH2.textContent =
+                data.overviewTitle;
+
+        }
+
+
+        const overviewP =
+            document.querySelectorAll(
+                ".details-main .details-section:nth-of-type(1) p"
+            );
+
+
+        if (overviewP.length >= 2) {
+
+            overviewP[0].textContent =
+                data.overviewText1;
+
+            overviewP[1].textContent =
+                data.overviewText2;
+
+        }
+
+
+        /* Quick Facts */
+
+        const facts =
+            document.querySelectorAll(
+                ".facts-card .fact strong"
+            );
+
+
+        if (facts.length >= 4) {
+
+            facts[0].textContent =
+                data.category
+                    .charAt(0) +
+                data.category
+                    .slice(1)
+                    .toLowerCase();
+
+            facts[1].textContent =
+                data.procedureType;
+
+            facts[2].textContent =
+                data.stay;
+
+            facts[3].textContent =
+                data.recovery;
+        }
+
+
+        /* FAQs */
+
+        const faqSummaries =
+            document.querySelectorAll(
+                ".faq-list details summary"
+            );
+
+
+        if (faqSummaries.length >= 2) {
+
+            faqSummaries[0].textContent =
+                data.faq1;
+
+            faqSummaries[1].textContent =
+                data.faq2;
+
+        }
+    }
 }
 
 
@@ -777,16 +894,18 @@ function loadTreatmentDetails() {
 ========================================= */
 
 function requestConsultation() {
-    window.location.href = 'appointment.html';
+
+    alert(
+        "Consultation request feature coming next!"
+    );
 }
 
 
 function compareTreatment() {
-    if (window.currentTreatmentId && window.currentTreatmentName) {
-        window.location.href = 'hospitals_by_treatment.html?id=' + window.currentTreatmentId + '&name=' + encodeURIComponent(window.currentTreatmentName);
-    } else {
-        window.location.href = 'hospitals.html';
-    }
+
+    alert(
+        "Hospital comparison feature coming next!"
+    );
 }
 
 
@@ -796,100 +915,39 @@ function compareTreatment() {
 
 function initializeTreatmentsPage() {
 
-    var grid = document.getElementById('treatmentGrid');
+    /*
+       This runs only when the treatment
+       page elements actually exist.
+    */
+
+    const grid =
+        document.getElementById("treatmentGrid");
+
+
     if (!grid) return;
 
-    fetch('http://localhost:5000/api/treatments')
-        .then(function(res) { return res.json(); })
-        .then(function(treatments) {
-            if (!treatments || treatments.length === 0) {
-                grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px;">No treatments found.</div>';
-                return;
-            }
 
-            var fallbackIcons = {
-                'Angioplasty': '❤️',
-                'ECG Test': '🩺',
-                'Knee Replacement': '🦴',
-                'Fracture Treatment': '🩹',
-                'MRI Scan': '🩻',
-                'Skin Allergy Treatment': '🧴',
-                'Child Vaccination': '💉',
-                'Appendectomy': '🔪',
-                'Cataract Surgery': '👁️',
-                'Hearing Test': '👂',
-                'Normal Delivery': '👶',
-                'Cesarean Section': '🍼',
-                'Chemotherapy': '💊',
-                'Cancer Screening': '🔬',
-                'Spinal Surgery': '🦴',
-                'Laser Eye Surgery': '👁️',
-                'Tonsillectomy': '🗣️',
-                'Physiotherapy': '🏃'
-            };
+    /*
+       Remember original card order
+    */
 
-            /* Populate specialty grid */
-            var specialtyGrid = document.getElementById('specialtyGrid');
-            if (specialtyGrid) {
-                specialtyGrid.innerHTML = '';
-                treatments.slice(0, 5).forEach(function(t) {
-                    var dbInfo = treatmentDatabase[t.name] || {};
-                    var icon = dbInfo.icon || fallbackIcons[t.name] || '\u{1F3E5}';
-                    var btn = document.createElement('button');
-                    btn.className = 'specialty-card';
-                    btn.innerHTML = '<span class="specialty-icon">' + icon + '</span><strong>' + t.name + '</strong><small>' + (t.description || '') + '</small>';
-                    btn.addEventListener('click', (function(name) { return function() { viewTreatment(name); }; })(t.name));
-                    specialtyGrid.appendChild(btn);
-                });
-            }
+    initializeTreatmentSorting();
 
-            /* Populate treatment cards */
-            grid.innerHTML = '';
-            treatments.forEach(function(t) {
-                var dbInfo = treatmentDatabase[t.name] || {};
-                var category = dbInfo.category || 'GENERAL';
-                var specialty = dbInfo.category ? (dbInfo.category.charAt(0) + dbInfo.category.slice(1).toLowerCase()) : 'General';
-                var price = dbInfo.cost ? (parseInt(dbInfo.cost.replace(/[^0-9]/g, '')) * 1000 || 100000) : 100000;
-                var icon = dbInfo.icon || fallbackIcons[t.name] || '\u{1F3E5}';
-                var costStr = dbInfo.cost || 'Varies';
-                var stayStr = dbInfo.stay || 'Varies';
-                var description = t.description || dbInfo.description || 'Medical treatment.';
-                var iconClass = specialty.toLowerCase();
 
-                var article = document.createElement('article');
-                article.className = 'full-treatment-card';
-                article.setAttribute('data-name', t.name);
-                article.setAttribute('data-specialty', specialty);
-                article.setAttribute('data-price', price);
-                article.setAttribute('data-treatment-id', t.id);
-                article.innerHTML =
-                    '<div class="full-treatment-icon ' + iconClass + '">' + icon + '</div>' +
-                    '<div class="full-treatment-content">' +
-                    '<span class="category">' + category + '</span>' +
-                    '<h3>' + t.name + '</h3>' +
-                    '<p>' + description + '</p>' +
-                    '<div class="treatment-details">' +
-                    '<div><small>Estimated cost</small><strong>' + costStr + '</strong></div>' +
-                    '<div><small>Typical duration</small><strong>' + stayStr + '</strong></div>' +
-                    '</div>' +
-                    '<div class="card-actions" style="display: flex; gap: 10px; margin-top: 15px;">' +
-                    '<button class="details-btn" style="flex: 1;">View Treatment &#8594;</button>' +
-                    '<button class="details-btn hospitals-btn" style="flex: 1;">View Hospitals</button>' +
-                    '</div>' +
-                    '</div>';
-                article.querySelector('.details-btn').addEventListener('click', (function(name) { return function() { viewTreatment(name); }; })(t.name));
-                article.querySelector('.hospitals-btn').addEventListener('click', (function(id, name) { return function() { window.location.href = 'hospitals_by_treatment.html?id=' + id + '&name=' + encodeURIComponent(name); }; })(t.id, t.name));
-                grid.appendChild(article);
-            });
+    /*
+       Enable live search
+    */
 
-            initializeTreatmentSorting();
-            initializeTreatmentSearchEvents();
-            initializeTreatmentsSearch();
-        })
-        .catch(function(err) {
-            grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:50px;color:red;">Failed to load. Is the server running?</div>';
-            console.error(err);
-        });
+    initializeTreatmentSearchEvents();
+
+
+    /*
+       Check if homepage sent
+       ?search=something
+    */
+
+    initializeTreatmentsSearch();
+
 }
 
 
