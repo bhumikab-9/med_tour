@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | MedTour India</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .appointment-hero {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+            color: var(--white);
+            padding: 80px 8% 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        .appointment-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(13, 159, 145, 0.15) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        .appointment-hero>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: -80px auto 80px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(18, 60, 105, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--background);
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(13, 159, 145, 0.1);
+            background: var(--white);
+        }
+
+        .date-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .date-row .form-group {
+            flex: 1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--teal-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(13, 159, 145, 0.2);
+        }
+
+        .international-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eef9f7;
+            color: var(--teal-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(13, 159, 145, 0.2);
+        }
+
+        /* ── Availability Calendar ── */
+        .date-picker {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--background);
+            padding: 12px;
+            user-select: none;
+        }
+
+        .dp-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .dp-nav {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--white);
+            color: var(--navy);
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+        .dp-nav:hover:not(:disabled) {
+            border-color: var(--teal);
+            color: var(--teal-dark);
+        }
+
+        .dp-nav:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .dp-month-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .dp-weekdays,
+        .dp-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .dp-weekdays span {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            padding-bottom: 4px;
+        }
+
+        .dp-day {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 12.5px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text);
+        }
+
+        .dp-day.dp-empty {
+            visibility: hidden;
+        }
+
+        .dp-day.dp-past,
+        .dp-day.dp-unavailable {
+            color: #c3ccd3;
+            background: transparent;
+        }
+
+        .dp-day.dp-available {
+            background: #e4f8ee;
+            color: #1a7a44;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid #bdeccf;
+        }
+
+        .dp-day.dp-available:hover {
+            background: #cdf2df;
+            transform: translateY(-1px);
+        }
+
+        .dp-day.dp-selected {
+            background: #17a568 !important;
+            color: white !important;
+            border-color: #17a568 !important;
+            box-shadow: 0 4px 10px rgba(23, 165, 104, 0.35);
+        }
+
+        .dp-legend {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .dp-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dp-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+        }
+
+        .dp-dot.available {
+            background: #e4f8ee;
+            border: 1px solid #bdeccf;
+        }
+
+        .dp-dot.selected {
+            background: #17a568;
+        }
+
+        .dp-selected-label {
+            margin-top: 8px;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .dp-selected-label.dp-empty-label {
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .dp-status {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 20px 0;
+            color: var(--muted);
+            font-size: 12.5px;
+        }
+    </style>
+</head>
+
+<body style="background: var(--background);">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            <span>MedTour<span class="logo-india">India</span></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="treatments.html">Treatments</a>
+            <a href="hospitals.html">Hospitals</a>
+            <a href="#">Doctors</a>
+            <a href="compareCost.html">Compare Cost</a>
+            <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="language-btn">🌐 EN</button>
+            <button class="login-btn">Login</button>
+        </div>
+
+    </header>
+
+    <main>
+        <section class="appointment-hero">
+            <h1>Book Your Medical Trip</h1>
+            <p style="color: #a9bbc9; max-width: 500px; margin: 15px auto 0;">
+                Schedule your consultation with top specialists in India. Our international patient team will assist you
+                with visas, travel, and translation.
+            </p>
+        </section>
+
+        <div class="form-container">
+            <div class="international-badge">
+                ✈️ Priority International Patient Desk
+            </div>
+
+            <form id="appointmentForm" onsubmit="return handleAppointmentSubmit(event);">
+
+                <div class="form-group">
+                    <label for="username">Username (Full Name)</label>
+                    <input type="text" id="username" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email address" required>
+                </div>
+
+                <div class="date-row">
+                    <div class="form-group">
+                        <label>Available Start Date</label>
+                        <div class="date-picker" id="startDatePicker">
+                            <div class="dp-status">Loading availability...</div>
+                        </div>
+                        <input type="hidden" id="startDate" required>
+                        <div class="dp-selected-label dp-empty-label" id="startDateLabel">No date selected yet</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Available End Date</label>
+                        <div class="date-picker" id="endDatePicker">
+                            <div class="dp-status">Loading availability...</div>
+                        </div>
+                        <input type="hidden" id="endDate" required>
+                        <div class="dp-selected-label dp-empty-label" id="endDateLabel">No date selected yet</div>
+                    </div>
+                </div>
+                <p style="font-size: 12px; color: var(--muted); margin: -15px 0 20px;">
+                    Dates highlighted in <strong style="color:#1a7a44;">green</strong> have confirmed hospital
+                    availability, pulled live from our scheduling database.
+                </p>
+
+                <div class="form-group">
+                    <label for="treatment">Treatment Seeking</label>
+                    <select id="treatment" required>
+                        <option value="" disabled selected>Loading treatments...</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hospital">Preferred Hospital</label>
+                    <select id="hospital">
+                        <option value="" disabled selected>Loading hospitals...</option>
+                        <option value="">No Preference / Help me choose</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Additional Requirements (Visa, Translator, Transport)</label>
+                    <textarea id="notes" rows="4"
+                        placeholder="Let us know how we can assist your travel and stay in India..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Request Appointment</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="index.html" class="logo footer-logo">
+                    <span class="logo-icon">+</span>
+                    <span>MedTour<span class="logo-india">India</span></span>
+                </a>
+                <p>Making healthcare discovery simpler, clearer and more accessible.</p>
+            </div>
+        </div>
+        <div class="footer-bottom"
+            style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align:center;">
+            <span>© 2026 MedTour India</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+        /* =========================================
+           AVAILABILITY CALENDAR
+           Fetches open dates from the MySQL-backed
+           /api/available-dates endpoint and renders
+           them as a clickable calendar, marking
+           available days in green.
+        ========================================= */
+
+        const MONTH_NAMES = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const WEEKDAY_LABELS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+        function toDateKey(d) {
+            const y = d.getFullYear();
+            const m = String(d.getMonth() + 1).padStart(2, "0");
+            const day = String(d.getDate()).padStart(2, "0");
+            return y + "-" + m + "-" + day;
+        }
+
+        function formatDisplayDate(dateKey) {
+            const [y, m, d] = dateKey.split("-").map(Number);
+            const date = new Date(y, m - 1, d);
+            return date.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+        }
+
+        function createAvailabilityCalendar(containerId, hiddenInputId, labelId) {
+            const container = document.getElementById(containerId);
+            const hiddenInput = document.getElementById(hiddenInputId);
+            const label = document.getElementById(labelId);
+
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            const state = {
+                availableDates: new Map(), // dateKey -> slots
+                viewYear: today.getFullYear(),
+                viewMonth: today.getMonth(),
+                selectedKey: null,
+                minMonth: today.getFullYear() * 12 + today.getMonth(),
+                maxMonth: today.getFullYear() * 12 + today.getMonth() + 5 // ~5 months ahead
+            };
+
+            function render() {
+                const currentMonthIndex = state.viewYear * 12 + state.viewMonth;
+
+                const firstOfMonth = new Date(state.viewYear, state.viewMonth, 1);
+                const daysInMonth = new Date(state.viewYear, state.viewMonth + 1, 0).getDate();
+                const startWeekday = firstOfMonth.getDay();
+
+                let cells = "";
+                for (let i = 0; i < startWeekday; i++) {
+                    cells += '<div class="dp-day dp-empty"></div>';
+                }
+
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const cellDate = new Date(state.viewYear, state.viewMonth, day);
+                    const key = toDateKey(cellDate);
+                    const isPast = cellDate < today;
+                    const isAvailable = state.availableDates.has(key);
+                    const isSelected = state.selectedKey === key;
+
+                    let cls = "dp-day";
+                    if (isSelected) {
+                        cls += " dp-selected";
+                    } else if (isPast) {
+                        cls += " dp-past";
+                    } else if (isAvailable) {
+                        cls += " dp-available";
+                    } else {
+                        cls += " dp-unavailable";
+                    }
+
+                    const clickable = !isPast && isAvailable;
+                    cells += '<div class="' + cls + '" data-date="' + key + '"' +
+                        (clickable ? ' role="button" tabindex="0"' : '') + '>' + day + '</div>';
+                }
+
+                container.innerHTML =
+                    '<div class="dp-header">' +
+                        '<button type="button" class="dp-nav" data-nav="-1"' +
+                            (currentMonthIndex <= state.minMonth ? ' disabled' : '') + '>‹</button>' +
+                        '<span class="dp-month-label">' + MONTH_NAMES[state.viewMonth] + ' ' + state.viewYear + '</span>' +
+                        '<button type="button" class="dp-nav" data-nav="1"' +
+                            (currentMonthIndex >= state.maxMonth ? ' disabled' : '') + '>›</button>' +
+                    '</div>' +
+                    '<div class="dp-weekdays">' +
+                        WEEKDAY_LABELS.map(function (w) { return '<span>' + w + '</span>'; }).join('') +
+                    '</div>' +
+                    '<div class="dp-grid">' + cells + '</div>' +
+                    '<div class="dp-legend">' +
+                        '<span class="dp-legend-item"><span class="dp-dot available"></span>Available</span>' +
+                        '<span class="dp-legend-item"><span class="dp-dot selected"></span>Selected</span>' +
+                    '</div>';
+
+                container.querySelectorAll('.dp-nav').forEach(function (btn) {
+                    btn.addEventListener('click', function () {
+                        const dir = parseInt(btn.getAttribute('data-nav'), 10);
+                        let newMonth = state.viewMonth + dir;
+                        let newYear = state.viewYear;
+                        if (newMonth < 0) { newMonth = 11; newYear--; }
+                        if (newMonth > 11) { newMonth = 0; newYear++; }
+                        state.viewMonth = newMonth;
+                        state.viewYear = newYear;
+                        render();
+                    });
+                });
+
+                container.querySelectorAll('.dp-day.dp-available, .dp-day.dp-selected').forEach(function (cell) {
+                    cell.addEventListener('click', function () {
+                        const key = cell.getAttribute('data-date');
+                        state.selectedKey = key;
+                        hiddenInput.value = key;
+                        label.textContent = "Selected: " + formatDisplayDate(key);
+                        label.classList.remove('dp-empty-label');
+                        render();
+                    });
+                });
+            }
+
+            function loadAvailability() {
+                fetch('/api/available-dates')
+                    .then(function (res) { return res.json(); })
+                    .then(function (data) {
+                        (data.dates || []).forEach(function (d) {
+                            state.availableDates.set(d.date, d.slots);
+                        });
+                        render();
+                    })
+                    .catch(function (err) {
+                        console.error('Failed to load available dates:', err);
+                        container.innerHTML = '<div class="dp-status">Couldn\'t load live availability. Is the server running?</div>';
+                    });
+            }
+
+            loadAvailability();
+
+            return state;
+        }
+
+        const startCalendar = createAvailabilityCalendar('startDatePicker', 'startDate', 'startDateLabel');
+        const endCalendar = createAvailabilityCalendar('endDatePicker', 'endDate', 'endDateLabel');
+
+        /* =========================================
+           TREATMENTS & HOSPITALS
+           Populated live from the MySQL-backed
+           /api/treatments and /api/hospitals/list
+           endpoints.
+        ========================================= */
+
+        function loadTreatments() {
+            const select = document.getElementById('treatment');
+            fetch('/api/treatments')
+                .then(function (res) { return res.json(); })
+                .then(function (treatments) {
+                    if (!Array.isArray(treatments) || treatments.length === 0) {
+                        select.innerHTML = '<option value="" disabled selected>No treatments available</option>';
+                        return;
+                    }
+                    select.innerHTML = '<option value="" disabled selected>Select a treatment...</option>' +
+                        treatments.map(function (t) {
+                            return '<option value="' + t.id + '">' + t.name + '</option>';
+                        }).join('');
+                })
+                .catch(function (err) {
+                    console.error('Failed to load treatments:', err);
+                    select.innerHTML = '<option value="" disabled selected>Couldn\'t load treatments</option>';
+                });
+        }
+
+        function loadHospitalsList() {
+            const select = document.getElementById('hospital');
+            fetch('/api/hospitals/list')
+                .then(function (res) { return res.json(); })
+                .then(function (hospitals) {
+                    const noPreference = '<option value="">No Preference / Help me choose</option>';
+                    if (!Array.isArray(hospitals) || hospitals.length === 0) {
+                        select.innerHTML = '<option value="" disabled selected>No hospitals available</option>' + noPreference;
+                        return;
+                    }
+                    select.innerHTML = '<option value="" disabled selected>Select a hospital (Optional)...</option>' +
+                        hospitals.map(function (h) {
+                            const city = h.city_state ? ' — ' + h.city_state : '';
+                            return '<option value="' + h.id + '">' + h.name + city + '</option>';
+                        }).join('') + noPreference;
+                })
+                .catch(function (err) {
+                    console.error('Failed to load hospitals:', err);
+                    select.innerHTML = '<option value="" disabled selected>Couldn\'t load hospitals</option>' +
+                        '<option value="">No Preference / Help me choose</option>';
+                });
+        }
+
+        loadTreatments();
+        loadHospitalsList();
+
+        /* =========================================
+           SUBMIT APPOINTMENT
+           Saves the request to the MySQL `appointment`
+           table via POST /api/appointments.
+        ========================================= */
+
+        function handleAppointmentSubmit(event) {
+            event.preventDefault();
+
+            const startVal = document.getElementById('startDate').value;
+            const endVal = document.getElementById('endDate').value;
+            const treatmentVal = document.getElementById('treatment').value;
+
+            if (!startVal) {
+                alert('Please select an available start date from the calendar (marked in green).');
+                return false;
+            }
+
+            if (!endVal) {
+                alert('Please select an available end date from the calendar (marked in green).');
+                return false;
+            }
+
+            if (endVal < startVal) {
+                alert('Your available end date should be on or after the start date.');
+                return false;
+            }
+
+            if (!treatmentVal) {
+                alert('Please select a treatment.');
+                return false;
+            }
+
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            const payload = {
+                username: document.getElementById('username').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                startDate: startVal,
+                endDate: endVal,
+                treatmentId: treatmentVal,
+                hospitalId: document.getElementById('hospital').value || null,
+                notes: document.getElementById('notes').value.trim()
+            };
+
+            fetch('/api/appointments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+                .then(function (res) {
+                    return res.json().then(function (data) {
+                        return { ok: res.ok, data: data };
+                    });
+                })
+                .then(function (result) {
+                    if (!result.ok) {
+                        throw new Error(result.data.message || 'Could not submit appointment');
+                    }
+                    alert('Appointment request submitted successfully! Our international desk will contact you shortly.');
+                    window.location.href = 'index.html';
+                })
+                .catch(function (err) {
+                    console.error('Failed to submit appointment:', err);
+                    alert('Sorry, we could not submit your appointment request. Please try again.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                });
+
+            return false;
+        }
+    </script>
+</body>
+
+</html>

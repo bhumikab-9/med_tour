@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Explore Treatments - MedTour India</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            <span>MedTour<span class="logo-india">India</span></span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="treatments.html">Treatments</a>
+            <a href="hospitals.html">Hospitals</a>
+            <a href="#">Doctors</a>
+            <a href="compareCost.html">Compare Cost</a>
+            <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="language-btn">🌐 EN</button>
+            <button class="login-btn">Login</button>
+        </div>
+
+    </header>
+
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+
+        <p class="small-title">EXPLORE HEALTHCARE</p>
+
+        <h1>Find the right treatment</h1>
+
+        <p>
+            Explore treatments, compare estimated costs
+            and find trusted healthcare providers.
+        </p>
+
+    </section>
+
+
+    <!-- SEARCH + FILTERS -->
+    <section class="treatment-section">
+
+        <div class="treatment-search">
+
+            <input
+                type="text"
+                id="treatmentSearch"
+                placeholder="Search treatments..."
+                oninput="filterStaticTreatments()"
+            >
+
+            <select id="cityFilter" onchange="filterStaticTreatments()">
+                <option value="all">All Cities</option>
+                <option value="delhi">Delhi</option>
+                <option value="mumbai">Mumbai</option>
+                <option value="chennai">Chennai</option>
+                <option value="bangalore">Bangalore</option>
+                <option value="hyderabad">Hyderabad</option>
+            </select>
+
+            <button onclick="filterStaticTreatments()">
+                Search
+            </button>
+
+        </div>
+
+
+        <!-- TREATMENT CARDS -->
+        <div class="treatment-list" id="treatmentList">
+
+
+            <!-- CARD 1 -->
+            <div class="treatment-item" data-city="delhi" data-name="Dental Implants">
+
+                <div class="treatment-image" style="background:#eaf9f6;">
+                    🦷
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        DENTAL
+                    </p>
+
+                    <h2>Dental Implant</h2>
+
+                    <p>
+                        Replace missing teeth with modern
+                        dental implant procedures.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Delhi</span>
+
+                        <span>💰 ₹60,000 - ₹90,000</span>
+
+                        <span>⏱ 1-2 Days</span>
+
+                    </div>
+
+                    <div class="card-actions-row">
+
+                        <a href="#" class="card-button" onclick="viewTreatment('Dental Implants'); return false;">
+                            View Treatment
+                        </a>
+
+                        <a href="hospitals.html" class="card-button outline">
+                            View Hospitals
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 2 -->
+            <div class="treatment-item" data-city="mumbai" data-name="IVF Treatment">
+
+                <div class="treatment-image" style="background:#f5efff;">
+                    🧬
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        FERTILITY
+                    </p>
+
+                    <h2>IVF Treatment</h2>
+
+                    <p>
+                        Advanced fertility treatment from
+                        experienced specialists.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Mumbai</span>
+
+                        <span>💰 ₹1,00,000 - ₹1,80,000</span>
+
+                        <span>⏱ 2-4 Weeks</span>
+
+                    </div>
+
+                    <div class="card-actions-row">
+
+                        <a href="#" class="card-button" onclick="viewTreatment('IVF Treatment'); return false;">
+                            View Treatment
+                        </a>
+
+                        <a href="hospitals.html" class="card-button outline">
+                            View Hospitals
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 3 -->
+            <div class="treatment-item" data-city="chennai" data-name="Knee Replacement">
+
+                <div class="treatment-image" style="background:#edf5fb;">
+                    🦴
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        ORTHOPEDIC
+                    </p>
+
+                    <h2>Knee Replacement</h2>
+
+                    <p>
+                        Advanced joint replacement procedures
+                        by experienced orthopedic surgeons.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Chennai</span>
+
+                        <span>💰 ₹1,50,000 - ₹2,50,000</span>
+
+                        <span>⏱ 5-7 Days</span>
+
+                    </div>
+
+                    <div class="card-actions-row">
+
+                        <a href="#" class="card-button" onclick="viewTreatment('Knee Replacement'); return false;">
+                            View Treatment
+                        </a>
+
+                        <a href="kneereplacement_hospitals.html" class="card-button outline">
+                            View Hospitals
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 4 -->
+            <div class="treatment-item" data-city="bangalore" data-name="Hair Transplant">
+
+                <div class="treatment-image" style="background:#fff0f1;">
+                    ✨
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        COSMETIC
+                    </p>
+
+                    <h2>Hair Transplant</h2>
+
+                    <p>
+                        Modern hair restoration procedures
+                        performed by specialists.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Bangalore</span>
+
+                        <span>💰 ₹50,000 - ₹1,20,000</span>
+
+                        <span>⏱ 1-3 Days</span>
+
+                    </div>
+
+                    <div class="card-actions-row">
+
+                        <a href="#" class="card-button" onclick="viewTreatment('Hair Transplant'); return false;">
+                            View Treatment
+                        </a>
+
+                        <a href="hospitals.html" class="card-button outline">
+                            View Hospitals
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 5 -->
+            <div class="treatment-item" data-city="delhi" data-name="Fracture Treatment">
+
+                <div class="treatment-image" style="background:#edf5fb;">
+                    🩹
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        ORTHOPEDIC
+                    </p>
+
+                    <h2>Fracture Treatment</h2>
+
+                    <p>
+                        Comprehensive fracture care and
+                        rehabilitation by top specialists.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Delhi</span>
+
+                        <span>💰 ₹40,000 - ₹1,50,000</span>
+
+                        <span>⏱ 1-4 Days</span>
+
+                    </div>
+
+                    <div class="card-actions-row">
+
+                        <a href="#" class="card-button" onclick="viewTreatment('Fracture Treatment'); return false;">
+                            View Treatment
+                        </a>
+
+                        <a href="fracture_hospitals.html" class="card-button outline">
+                            View Hospitals
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 6 -->
+            <div class="treatment-item" data-city="hyderabad" data-name="MRI Scan">
+
+                <div class="treatment-image" style="background:#edf5fb;">
+                    🩻
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        DIAGNOSTICS
+                    </p>
+
+                    <h2>MRI Scan</h2>
+
+                    <p>
+                        Detailed diagnostic imaging performed
+                        with modern MRI equipment.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Hyderabad</span>
+
+                        <span>💰 ₹4,000 - ₹15,000</span>
+
+                        <span>⏱ Same Day</span>
+
+                    </div>
+
+                    <div class="card-actions-row">
+
+                        <a href="#" class="card-button" onclick="viewTreatment('MRI Scan'); return false;">
+                            View Treatment
+                        </a>
+
+                        <a href="mri_hospitals.html" class="card-button outline">
+                            View Hospitals
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CARD 7 -->
+            <div class="treatment-item" data-city="mumbai" data-name="Normal Delivery">
+
+                <div class="treatment-image" style="background:#eaf9f6;">
+                    👶
+                </div>
+
+                <div class="treatment-info">
+
+                    <p class="treatment-category">
+                        MATERNITY
+                    </p>
+
+                    <h2>Maternity & Delivery</h2>
+
+                    <p>
+                        Prenatal, delivery and postnatal care
+                        from experienced obstetric teams.
+                    </p>
+
+                    <div class="treatment-details">
+
+                        <span>📍 Mumbai</span>
+
+                        <span>💰 ₹50,000 - ₹1,20,000</span>
+
+                        <span>⏱ 2-4 Days</span>
+
+                    </div>
+
+                    <div class="card-actions-row">
+
+                        <a href="#" class="card-button" onclick="viewTreatment('Normal Delivery'); return false;">
+                            View Treatment
+                        </a>
+
+                        <a href="delivery_hospitals.html" class="card-button outline">
+                            View Hospitals
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <p id="noTreatmentsFound" style="display:none; grid-column:1/-1; text-align:center; color: var(--muted); padding: 40px 0;">
+                No treatments match your search.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo footer-logo">
+                    <span class="logo-icon">+</span>
+                    <span>MedTour<span class="logo-india">India</span></span>
+                </a>
+
+                <p>
+                    Making healthcare discovery simpler,
+                    clearer and more accessible.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Explore</h4>
+
+                <a href="treatments.html">Treatments</a>
+                <a href="hospitals.html">Hospitals</a>
+                <a href="#">Doctors</a>
+                <a href="compareCost.html">Compare</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Company</h4>
+
+                <a href="#">About Us</a>
+                <a href="#">How It Works</a>
+                <a href="#">Contact</a>
+                <a href="#">FAQs</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>Support</h4>
+
+                <a href="#">Help Center</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bottom">
+            <span>© 2026 MedTour India</span>
+            <span>Built for better healthcare discovery.</span>
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+    <script>
+        function filterStaticTreatments() {
+            var searchInput = document.getElementById('treatmentSearch');
+            var cityInput = document.getElementById('cityFilter');
+            var search = (searchInput.value || '').trim().toLowerCase();
+            var city = cityInput.value;
+
+            var items = document.querySelectorAll('#treatmentList .treatment-item');
+            var visibleCount = 0;
+
+            items.forEach(function (item) {
+                var name = (item.getAttribute('data-name') || '').toLowerCase();
+                var category = (item.querySelector('.treatment-category') || {}).textContent || '';
+                category = category.toLowerCase();
+                var itemCity = item.getAttribute('data-city');
+
+                var matchesSearch = search === '' || name.includes(search) || category.includes(search);
+                var matchesCity = city === 'all' || itemCity === city;
+
+                if (matchesSearch && matchesCity) {
+                    item.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            var noResults = document.getElementById('noTreatmentsFound');
+            if (noResults) {
+                noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+            }
+        }
+    </script>
+
+</body>
+
+</html>

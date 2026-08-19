@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maternity & Delivery Hospitals - MedTour India</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            <span>MedTour<span class="logo-india">India</span></span>
+        </a>
+        <nav class="nav-links">
+            <a href="treatments.html">Treatments</a>
+            <a href="hospitals.html">Hospitals</a>
+            <a href="#">Doctors</a>
+            <a href="compareCost.html">Compare Cost</a>
+            <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="language-btn">🌐 EN</button>
+            <button class="login-btn">Login</button>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <p class="small-title">MATERNITY</p>
+        <h1>Delivery Hospitals</h1>
+        <p>Safe and comprehensive maternity care for normal and cesarean deliveries.</p>
+    </section>
+
+    <section class="treatment-section">
+        <div class="treatment-list" id="hospitalList">
+            <div class="loading">Fetching hospitals from database...</div>
+        </div>
+    </section>
+
+    <script>
+        // Delivery covers normal delivery (11) and cesarean section (12)
+        fetch('http://localhost:5000/api/treatment-hospitals?ids=11,12')
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('hospitalList');
+                if (!data || data.length === 0) {
+                    list.innerHTML = '<div class="loading">No hospitals found for this treatment.</div>';
+                    return;
+                }
+                list.innerHTML = '';
+                data.forEach(h => {
+                    const card = document.createElement('div');
+                    card.className = 'treatment-item';
+                    const costStr = new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 }).format(h.cost);
+                    card.innerHTML = `
+                        <div class="treatment-image" style="background: #edf5fb; font-size:50px;">🏥</div>
+                        <div class="treatment-info">
+                            <p class="treatment-category">${h.location}</p>
+                            <h2>${h.hospital_name}</h2>
+                            <p>${h.description}</p>
+                            <div class="treatment-details">
+                                <span>📍 ${h.location}</span>
+                                <span>💰 ${costStr}</span>
+                            </div>
+                            <button class="card-button" onclick="window.location.href='appointment.html?hospital=' + encodeURIComponent('${h.hospital_name}')">Book Consultation</button>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            })
+            .catch(err => {
+                document.getElementById('hospitalList').innerHTML = '<div class="error">Failed to load from database. Is the server running?</div>';
+                console.error(err);
+            });
+    </script>
+    <footer>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="index.html" class="logo footer-logo">
+                    <span class="logo-icon">+</span>
+                    <span>MedTour<span class="logo-india">India</span></span>
+                </a>
+                <p>Making healthcare discovery simpler, clearer and more accessible.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <a href="treatments.html">Treatments</a>
+                <a href="hospitals.html">Hospitals</a>
+                <a href="#">Doctors</a>
+                <a href="compareCost.html">Compare</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 MedTour India</span>
+            <span>Built for better healthcare discovery.</span>
+        </div>
+    </footer>
+</body>
+
+</html>

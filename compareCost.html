@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Treatment Costs | MedTour India</title>
+    <meta name="description"
+        content="Compare treatment costs in India vs Iran, Thailand, Malaysia, Singapore and Germany. See how much you save with MedTour India.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* ── Page-specific variables ── */
+        :root {
+            --india: #0d9f91;
+            --iran: #e05c5c;
+            --thailand: #f5a623;
+            --malaysia: #6c47d4;
+            --singapore: #2b7df0;
+            --germany: #e0304e;
+        }
+
+        /* ── Hero banner ── */
+        .cc-hero {
+            background: linear-gradient(135deg, var(--navy-dark, #0b2948) 0%, #123c69 60%, #0d9f91 100%);
+            padding: 110px 6% 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cc-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .cc-hero .section-label {
+            color: rgba(255, 255, 255, 0.65);
+            font-size: 0.78rem;
+            letter-spacing: 2.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .cc-hero h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .cc-hero h1 span {
+            background: linear-gradient(90deg, #4df0e0, #a3f0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cc-hero p {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 1.1rem;
+            max-width: 580px;
+            margin: 0 auto 36px;
+        }
+
+        /* ── Savings ribbon ── */
+        .savings-ribbon {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .ribbon-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 16px;
+            border-radius: 99px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .ribbon-pill .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--teal);
+        }
+
+        /* ── Controls bar ── */
+        .cc-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+            padding: 28px 6%;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 72px;
+            z-index: 90;
+        }
+
+        .cc-controls-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cc-controls label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        #treatmentSelect {
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1.5px solid var(--border);
+            background: var(--background);
+            color: var(--text);
+            font-size: 0.95rem;
+            font-weight: 600;
+            min-width: 260px;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        #treatmentSelect:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(13, 159, 145, 0.15);
+        }
+
+        .view-toggle {
+            display: flex;
+            gap: 6px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1.5px solid var(--border);
+            background: var(--white);
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            transition: all 0.2s;
+        }
+
+        .view-btn.active,
+        .view-btn:hover {
+            background: var(--navy);
+            border-color: var(--navy);
+            color: #fff;
+        }
+
+        /* ── Main content ── */
+        .cc-body {
+            padding: 50px 6% 80px;
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        /* ── Treatment detail card ── */
+        .treatment-detail-card {
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 32px 36px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            box-shadow: var(--shadow);
+            animation: fadeUp 0.4s ease;
+        }
+
+        .td-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, #e6f9f7 0%, #c8f3ef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .td-info h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .td-info p {
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .td-badge {
+            margin-left: auto;
+            background: linear-gradient(135deg, #e6f9f7, #c8f3ef);
+            color: var(--teal-dark);
+            border-radius: 12px;
+            padding: 14px 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .td-badge .save-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--teal-dark);
+        }
+
+        .td-badge .save-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--teal-dark);
+        }
+
+        .td-badge .save-sub {
+            font-size: 0.78rem;
+            color: var(--teal);
+        }
+
+        /* ── Chart view ── */
+        .bar-chart-wrapper {
+            background: var(--white);
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            padding: 36px;
+            box-shadow: var(--shadow);
+            animation: fadeUp 0.45s ease;
+        }
+
+        .chart-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 32px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .bar-country {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 130px;
+            flex-shrink: 0;
+        }
+
+        .flag {
+            font-size: 1.3rem;
+        }
+
+        .country-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 44px;
+            background: var(--background);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            padding: 0 14px;
+            transition: width 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            width: 0;
+            position: relative;
+        }
+
+        .bar-fill span {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+        }
+
+        .bar-amount {
+            width: 100px;
+            text-align: right;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            flex-shrink: 0;
+        }
+
+        .india-best-tag {
+            font-size: 0.7rem;
+            font-weight: 700;
+            background: rgba(13, 159, 145, 0.15);
+            color: var(--teal-dark);
+            padding: 2px 8px;
+            border-radius: 99px;
+            margin-left: 6px;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        /* ── Table view ── */
+        .compare-table-wrap {
+            overflow-x: auto;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            animation: fadeUp 0.45s ease;
+        }
+
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            min-width: 700px;
+        }
+
+        .compare-table th {
+            padding: 18px 24px;
+            text-align: left;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .compare-table th:first-child {
+            background: var(--navy-dark);
+            color: #fff;
+        }
+
+        .compare-table th.india-col {
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .compare-table th:not(:first-child):not(.india-col) {
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .compare-table td {
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            color: var(--text);
+        }
+
+        .compare-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .compare-table tr:hover td {
+            background: #f0fcfb;
+        }
+
+        .compare-table td.india-col {
+            font-weight: 700;
+            color: var(--teal-dark);
+            background: rgba(13, 159, 145, 0.06);
+        }
+
+        .compare-table td:first-child {
+            font-weight: 600;
+            color: var(--navy);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* ── Country legend chips ── */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 32px;
+        }
+
+        .legend-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 99px;
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ── Info card at bottom ── */
+        .info-strip {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 44px;
+        }
+
+        .info-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .info-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(20, 50, 70, 0.12);
+        }
+
+        .info-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #e6f9f7, #c8f3ef);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .info-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .info-card p {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* ── Hidden views ── */
+        #chartView,
+        #tableView {
+            display: none;
+        }
+
+        #chartView.active,
+        #tableView.active {
+            display: block;
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .cc-hero {
+                padding: 100px 5% 48px;
+            }
+
+            .cc-controls {
+                top: 60px;
+                padding: 16px 5%;
+            }
+
+            #treatmentSelect {
+                min-width: 180px;
+                font-size: 0.9rem;
+            }
+
+            .cc-body {
+                padding: 32px 5% 60px;
+            }
+
+            .treatment-detail-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .td-badge {
+                margin: 0 auto;
+            }
+
+            .bar-row {
+                gap: 10px;
+            }
+
+            .bar-country {
+                width: 80px;
+            }
+
+            .country-name {
+                font-size: 0.78rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── NAVBAR ── -->
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            <span>MedTour<span class="logo-india">India</span></span>
+        </a>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="treatments.html">Treatments</a>
+            <a href="index.html#hospitals">Hospitals</a>
+            <a href="compareCost.html" style="color:var(--teal);font-weight:700;">Compare Cost</a>
+            <a href="#">How It Works</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="language-btn">🌐 EN</button>
+        </div>
+    </header>
+
+    <!-- ── HERO ── -->
+    <section class="cc-hero">
+        <span class="section-label">Global Cost Comparison</span>
+        <h1>India offers <span>up to 90% savings</span><br>on world-class treatments</h1>
+        <p>Compare real treatment costs across 6 countries — and discover why thousands of patients choose India every
+            year.</p>
+        <div class="savings-ribbon">
+            <div class="ribbon-pill"><span class="dot" style="background:#fff"></span>🇮🇳 India — Lowest Cost</div>
+            <div class="ribbon-pill"><span class="dot" style="background:var(--iran)"></span>🇮🇷 Iran</div>
+            <div class="ribbon-pill"><span class="dot" style="background:var(--thailand)"></span>🇹🇭 Thailand</div>
+            <div class="ribbon-pill"><span class="dot" style="background:var(--malaysia)"></span>🇲🇾 Malaysia</div>
+            <div class="ribbon-pill"><span class="dot" style="background:var(--singapore)"></span>🇸🇬 Singapore</div>
+            <div class="ribbon-pill"><span class="dot" style="background:var(--germany)"></span>🇩🇪 Germany</div>
+        </div>
+    </section>
+
+    <!-- ── STICKY CONTROLS ── -->
+    <div class="cc-controls">
+        <div class="cc-controls-left">
+            <label for="treatmentSelect">📋 Treatment</label>
+            <select id="treatmentSelect" onchange="onTreatmentChange()">
+                <!-- Populated by JS -->
+            </select>
+        </div>
+        <div class="view-toggle">
+            <button class="view-btn active" id="btnChart" onclick="switchView('chart')">📊 Bar Chart</button>
+            <button class="view-btn" id="btnTable" onclick="switchView('table')">📋 Table</button>
+        </div>
+    </div>
+
+    <!-- ── MAIN BODY ── -->
+    <div class="cc-body">
+
+        <!-- Treatment summary card -->
+        <div class="treatment-detail-card" id="treatmentCard">
+            <div class="td-icon" id="tdIcon">🏥</div>
+            <div class="td-info">
+                <h2 id="tdName">–</h2>
+                <p id="tdDesc">–</p>
+            </div>
+            <div class="td-badge">
+                <div class="save-label">You save up to</div>
+                <div class="save-value" id="tdSaving">–</div>
+                <div class="save-sub" id="tdSavingVs">vs Germany</div>
+            </div>
+        </div>
+
+        <!-- Chart View -->
+        <div id="chartView" class="active">
+            <div class="bar-chart-wrapper">
+                <div class="chart-title">Cost comparison in USD (approximate)</div>
+                <div id="barChart"></div>
+                <div class="legend">
+                    <div class="legend-chip"><span class="legend-dot" style="background:var(--india)"></span>🇮🇳 India
+                    </div>
+                    <div class="legend-chip"><span class="legend-dot" style="background:var(--iran)"></span>🇮🇷 Iran
+                    </div>
+                    <div class="legend-chip"><span class="legend-dot" style="background:var(--thailand)"></span>🇹🇭
+                        Thailand</div>
+                    <div class="legend-chip"><span class="legend-dot" style="background:var(--malaysia)"></span>🇲🇾
+                        Malaysia</div>
+                    <div class="legend-chip"><span class="legend-dot" style="background:var(--singapore)"></span>🇸🇬
+                        Singapore</div>
+                    <div class="legend-chip"><span class="legend-dot" style="background:var(--germany)"></span>🇩🇪
+                        Germany</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table View -->
+        <div id="tableView">
+            <div class="compare-table-wrap">
+                <table class="compare-table">
+                    <thead>
+                        <tr>
+                            <th>Country</th>
+                            <th class="india-col">🇮🇳 India ★</th>
+                            <th>🇮🇷 Iran</th>
+                            <th>🇹🇭 Thailand</th>
+                            <th>🇲🇾 Malaysia</th>
+                            <th>🇸🇬 Singapore</th>
+                            <th>🇩🇪 Germany</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Info cards -->
+        <div class="info-strip">
+            <div class="info-card">
+                <div class="info-card-icon">✅</div>
+                <div>
+                    <h4>JCI Accredited Hospitals</h4>
+                    <p>India has one of the highest numbers of JCI-accredited hospitals in Asia offering world-class
+                        care.</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">✈️</div>
+                <div>
+                    <h4>Medical Visa on Arrival</h4>
+                    <p>India offers e-Medical Visa for patients from 150+ countries — making travel simple and fast.</p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">🗣️</div>
+                <div>
+                    <h4>English-Speaking Doctors</h4>
+                    <p>Most top Indian hospitals have highly qualified, English-speaking specialists trained globally.
+                    </p>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="info-card-icon">💰</div>
+                <div>
+                    <h4>No Hidden Costs</h4>
+                    <p>Transparent pricing with no surprise bills. Get detailed cost estimates before you travel.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ── FOOTER ── -->
+    <footer>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="index.html" class="logo footer-logo">
+                    <span class="logo-icon">+</span>
+                    <span>MedTour<span class="logo-india">India</span></span>
+                </a>
+                <p>Making healthcare discovery simpler, clearer and more accessible.</p>
+            </div>
+            <div class="footer-column">
+                <h4>Explore</h4>
+                <a href="treatments.html">Treatments</a>
+                <a href="index.html#hospitals">Hospitals</a>
+                <a href="#">Doctors</a>
+                <a href="compareCost.html">Compare Cost</a>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">How It Works</a>
+                <a href="#">Contact</a>
+                <a href="#">FAQs</a>
+            </div>
+            <div class="footer-column">
+                <h4>Support</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 MedTour India</span>
+            <span>Built for better healthcare discovery.</span>
+        </div>
+    </footer>
+
+    <script>
+        /* =====================================================
+           TREATMENT DATA — sourced from meddatabase.sql
+           Costs in USD (realistic approximations)
+           India is always lowest.
+        ===================================================== */
+        const treatments = [
+            {
+                id: 1,
+                name: "Angioplasty",
+                desc: "Procedure to open blocked or narrowed coronary arteries",
+                icon: "❤️",
+                costs: { india: 3200, iran: 4500, thailand: 8000, malaysia: 9500, singapore: 18000, germany: 25000 }
+            },
+            {
+                id: 2,
+                name: "ECG Test",
+                desc: "Electrocardiogram to measure electrical activity of the heart",
+                icon: "📈",
+                costs: { india: 8, iran: 15, thailand: 40, malaysia: 45, singapore: 120, germany: 180 }
+            },
+            {
+                id: 3,
+                name: "Knee Replacement",
+                desc: "Surgical replacement of a damaged knee joint",
+                icon: "🦴",
+                costs: { india: 3000, iran: 4000, thailand: 8500, malaysia: 10000, singapore: 19000, germany: 23000 }
+            },
+            {
+                id: 4,
+                name: "Fracture Treatment",
+                desc: "Treatment and stabilization of broken bones",
+                icon: "🩹",
+                costs: { india: 400, iran: 600, thailand: 1200, malaysia: 1500, singapore: 3500, germany: 4500 }
+            },
+            {
+                id: 5,
+                name: "MRI Scan",
+                desc: "Magnetic resonance imaging diagnostic scan",
+                icon: "🩻",
+                costs: { india: 100, iran: 150, thailand: 320, malaysia: 380, singapore: 800, germany: 1000 }
+            },
+            {
+                id: 6,
+                name: "Skin Allergy Treatment",
+                desc: "Diagnosis and treatment of allergic skin conditions",
+                icon: "🩺",
+                costs: { india: 30, iran: 50, thailand: 90, malaysia: 110, singapore: 250, germany: 350 }
+            },
+            {
+                id: 7,
+                name: "Child Vaccination",
+                desc: "Routine vaccination and immunization for children",
+                icon: "💉",
+                costs: { india: 12, iran: 20, thailand: 50, malaysia: 60, singapore: 130, germany: 200 }
+            },
+            {
+                id: 8,
+                name: "Appendectomy",
+                desc: "Surgical removal of the appendix",
+                icon: "🔬",
+                costs: { india: 700, iran: 1000, thailand: 2800, malaysia: 3200, singapore: 9000, germany: 14000 }
+            },
+            {
+                id: 9,
+                name: "Cataract Surgery",
+                desc: "Surgical removal of cataract from the eye",
+                icon: "👁️",
+                costs: { india: 650, iran: 900, thailand: 1800, malaysia: 2200, singapore: 4500, germany: 7000 }
+            },
+            {
+                id: 10,
+                name: "Hearing Test",
+                desc: "Diagnostic test to assess hearing ability",
+                icon: "👂",
+                costs: { india: 20, iran: 35, thailand: 70, malaysia: 80, singapore: 200, germany: 280 }
+            },
+            {
+                id: 11,
+                name: "Normal Delivery",
+                desc: "Standard vaginal childbirth procedure",
+                icon: "👶",
+                costs: { india: 500, iran: 700, thailand: 1500, malaysia: 1800, singapore: 5000, germany: 7500 }
+            },
+            {
+                id: 12,
+                name: "Cesarean Section",
+                desc: "Surgical childbirth procedure (C-section)",
+                icon: "🏥",
+                costs: { india: 1100, iran: 1500, thailand: 3500, malaysia: 4000, singapore: 9000, germany: 14000 }
+            },
+            {
+                id: 13,
+                name: "Chemotherapy",
+                desc: "Drug treatment used to treat cancer (per cycle)",
+                icon: "🧬",
+                costs: { india: 900, iran: 1200, thailand: 3000, malaysia: 3500, singapore: 7500, germany: 12000 }
+            },
+            {
+                id: 14,
+                name: "Cancer Screening",
+                desc: "Comprehensive diagnostic screening for early cancer detection",
+                icon: "🔍",
+                costs: { india: 120, iran: 180, thailand: 400, malaysia: 480, singapore: 1100, germany: 1600 }
+            },
+            {
+                id: 15,
+                name: "Spinal Surgery",
+                desc: "Surgical treatment of spinal conditions",
+                icon: "🦴",
+                costs: { india: 4500, iran: 6000, thailand: 13000, malaysia: 15000, singapore: 28000, germany: 38000 }
+            },
+            {
+                id: 16,
+                name: "Laser Eye Surgery",
+                desc: "Laser-based procedure for vision correction (LASIK)",
+                icon: "👁️",
+                costs: { india: 700, iran: 1000, thailand: 2200, malaysia: 2600, singapore: 5500, germany: 8000 }
+            },
+            {
+                id: 17,
+                name: "Tonsillectomy",
+                desc: "Surgical removal of the tonsils",
+                icon: "🤒",
+                costs: { india: 500, iran: 700, thailand: 1600, malaysia: 2000, singapore: 5000, germany: 7500 }
+            },
+            {
+                id: 18,
+                name: "Physiotherapy",
+                desc: "Physical rehabilitation and recovery treatment (per session)",
+                icon: "🏃",
+                costs: { india: 25, iran: 40, thailand: 80, malaysia: 90, singapore: 220, germany: 320 }
+            }
+        ];
+
+        const countries = [
+            { key: "india", label: "India", flag: "🇮🇳", color: "var(--india)" },
+            { key: "iran", label: "Iran", flag: "🇮🇷", color: "var(--iran)" },
+            { key: "thailand", label: "Thailand", flag: "🇹🇭", color: "var(--thailand)" },
+            { key: "malaysia", label: "Malaysia", flag: "🇲🇾", color: "var(--malaysia)" },
+            { key: "singapore", label: "Singapore", flag: "🇸🇬", color: "var(--singapore)" },
+            { key: "germany", label: "Germany", flag: "🇩🇪", color: "var(--germany)" }
+        ];
+
+        let currentView = 'chart';
+
+        /* ── Populate dropdown ── */
+        function buildDropdown() {
+            const sel = document.getElementById('treatmentSelect');
+            treatments.forEach((t, i) => {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = `${t.icon}  ${t.name}`;
+                sel.appendChild(opt);
+            });
+        }
+
+        /* ── Format USD ── */
+        function fmt(n) {
+            if (n >= 1000) return '$' + (n / 1000).toFixed(n % 1000 === 0 ? 0 : 1) + 'k';
+            return '$' + n.toLocaleString();
+        }
+
+        /* ── Render treatment info card ── */
+        function renderCard(t) {
+            document.getElementById('tdIcon').textContent = t.icon;
+            document.getElementById('tdName').textContent = t.name;
+            document.getElementById('tdDesc').textContent = t.desc;
+
+            const indiaVal = t.costs.india;
+            const maxVal = Math.max(...Object.values(t.costs));
+            const maxKey = Object.keys(t.costs).find(k => t.costs[k] === maxVal);
+            const saving = Math.round((1 - indiaVal / maxVal) * 100);
+            const maxCountry = countries.find(c => c.key === maxKey);
+
+            document.getElementById('tdSaving').textContent = saving + '%';
+            document.getElementById('tdSavingVs').textContent = `vs ${maxCountry ? maxCountry.flag + ' ' + maxCountry.label : 'highest'}`;
+        }
+
+        /* ── Render bar chart ── */
+        function renderChart(t) {
+            const container = document.getElementById('barChart');
+            container.innerHTML = '';
+
+            const costs = t.costs;
+            const maxVal = Math.max(...Object.values(costs));
+
+            countries.forEach(c => {
+                const val = costs[c.key];
+                const pct = (val / maxVal) * 100;
+                const isIn = c.key === 'india';
+
+                const row = document.createElement('div');
+                row.className = 'bar-row';
+
+                row.innerHTML = `
+            <div class="bar-country">
+                <span class="flag">${c.flag}</span>
+                <span class="country-name">${c.label}</span>
+            </div>
+            <div class="bar-track">
+                <div class="bar-fill" data-pct="${pct}" style="background:${c.color}; width:0%">
+                    <span>${fmt(val)}${isIn ? ' ★' : ''}</span>
+                </div>
+            </div>
+            <div class="bar-amount">
+                ${fmt(val)}
+                ${isIn ? '<span class="india-best-tag">Lowest</span>' : ''}
+            </div>`;
+
+                container.appendChild(row);
+            });
+
+            /* Animate bars after a tick */
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    document.querySelectorAll('.bar-fill').forEach(el => {
+                        el.style.width = el.dataset.pct + '%';
+                    });
+                });
+            });
+        }
+
+        /* ── Render table ── */
+        function renderTable(t) {
+            const body = document.getElementById('tableBody');
+            body.innerHTML = `
+        <tr>
+            <td style="display:table-cell;font-weight:600;color:var(--navy);">
+                ${t.icon} ${t.name}
+            </td>
+            <td class="india-col">$${t.costs.india.toLocaleString()}</td>
+            <td>$${t.costs.iran.toLocaleString()}</td>
+            <td>$${t.costs.thailand.toLocaleString()}</td>
+            <td>$${t.costs.malaysia.toLocaleString()}</td>
+            <td>$${t.costs.singapore.toLocaleString()}</td>
+            <td>$${t.costs.germany.toLocaleString()}</td>
+        </tr>`;
+        }
+
+        /* ── Master render ── */
+        function render() {
+            const idx = parseInt(document.getElementById('treatmentSelect').value);
+            const t = treatments[idx];
+            renderCard(t);
+            renderChart(t);
+            renderTable(t);
+        }
+
+        function onTreatmentChange() { render(); }
+
+        /* ── View toggle ── */
+        function switchView(view) {
+            currentView = view;
+            document.getElementById('chartView').classList.toggle('active', view === 'chart');
+            document.getElementById('tableView').classList.toggle('active', view === 'table');
+            document.getElementById('btnChart').classList.toggle('active', view === 'chart');
+            document.getElementById('btnTable').classList.toggle('active', view === 'table');
+        }
+
+        /* ── Init ── */
+        buildDropdown();
+        render();
+    </script>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

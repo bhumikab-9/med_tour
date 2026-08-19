@@ -1,0 +1,28 @@
+{
+  "name": "med_tour",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhumikab-9/med_tour.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bhumikab-9/med_tour/issues"
+  },
+  "homepage": "https://github.com/bhumikab-9/med_tour#readme",
+  "description": "MedTour India — hospitals, treatments and appointments backed by MySQL",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.4.7",
+    "express": "^5.2.1",
+    "mysql2": "^3.23.3"
+  }
+}
