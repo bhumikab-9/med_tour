@@ -212,6 +212,26 @@ document.addEventListener("DOMContentLoaded", handleRoute);
         return wrap;
     }
 
+    function appendCareOptions(options) {
+        if (!options || !Array.isArray(options.hospitals) || !options.hospitals.length) return;
+        var wrap = document.createElement("div");
+        wrap.className = "ai-care-options";
+        var cards = options.hospitals.map(function (hospital) {
+            return '<article class="ai-care-card">' +
+                '<div><strong>' + escapeHtml(hospital.name) + '</strong>' +
+                '<span>' + escapeHtml(hospital.city) + '</span></div>' +
+                '<b>' + escapeHtml(hospital.cost) + '</b>' +
+                '<small>' + escapeHtml(hospital.note) + '</small>' +
+                '</article>';
+        }).join("");
+        wrap.innerHTML = '<div class="ai-care-heading"><strong>Local catalog matches</strong>' +
+            '<span>Estimated costs for ' + escapeHtml(options.treatment) + '</span></div>' +
+            '<div class="ai-care-grid">' + cards + '</div>' +
+            '<p class="ai-care-note">Catalog estimates are for comparison only. Confirm current pricing, availability, eligibility, and clinical suitability directly with a qualified hospital.</p>';
+        els.messages.appendChild(wrap);
+        scrollBottom(true);
+    }
+
     var URGENCY_LABEL = {
         emergency: "Emergency",
         same_day: "Same day",
@@ -375,6 +395,7 @@ document.addEventListener("DOMContentLoaded", handleRoute);
                 hideTyping();
                 removeError();
                 appendAi(data.message, { urgency: data.urgency });
+                appendCareOptions(data.care_options);
                 if (data.safety_flag) showEmergencyBanner();
             })
             .catch(function () {

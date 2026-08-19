@@ -17,6 +17,7 @@ const path = require("node:path");
 const crypto = require("node:crypto");
 
 const { MEDICAL_SYSTEM_PROMPT } = require("./config/medical-prompt");
+const { findCareOptions, isCareNavigationRequest } = require("./config/care-catalog");
 const { chat } = require("./config/llm");
 const safety = require("./lib/medical-safety");
 
@@ -246,6 +247,16 @@ async function handleMedicalChat(req, res) {
 
     // Screen the user's message with the rule-based triage engine.
     const userTriage = safety.triageUserText(message);
+    const careMatch = userTriage.urgency === safety.URGENCY.EMERGENCY || !isCareNavigationRequest(message)
+        ? null
+        : findCareOptions(message);
+
+    // Give the model the deterministic screen as routing context. This is not
+    // a diagnosis and the response is still scanned by the safety backstop.
+    const careContext = careMatch
+        ? `\n\nVerified MedTour demo catalog context (use only for treatment-navigation questions; costs are estimates, not quotes):\nTreatment: ${careMatch.treatment}\nOptions:\n${careMatch.hospitals.map((item) => `- ${item.name}, ${item.city}: ${item.cost}; ${item.note}`).join("\n")}\nPresent these as local catalog matches, do not imply clinical suitability, availability, quality ranking, or confirmed pricing.`
+        : "";
+    const triageContext = `\n\nRequest routing context (server-generated, not a diagnosis):\n- Initial urgency signal: ${userTriage.urgency}\n- Safety flag: ${userTriage.safety_flag ? "yes" : "no"}\n- Matched signal: ${userTriage.matched || "none"}\nUse this only to calibrate urgency. Do not reveal internal rule names or claim that this is a clinical assessment.${careContext}`;
 
     // Append the user turn to the in-memory history.
     conv.history.push({ role: "user", parts: [{ text: message }] });
@@ -253,7 +264,7 @@ async function handleMedicalChat(req, res) {
     let result;
     try {
         result = await chat({
-            systemPrompt: MEDICAL_SYSTEM_PROMPT,
+            systemPrompt: MEDICAL_SYSTEM_PROMPT + triageContext,
             history: conv.history,
             maxOutputTokens: 2048,
             timeoutMs: 45000,
@@ -278,12 +289,18 @@ async function handleMedicalChat(req, res) {
     const responseUrgency = safety.scanResponse(result.text);
     const urgency = safety.finalUrgency(userTriage, responseUrgency);
     const safetyFlag = userTriage.safety_flag || urgency === safety.URGENCY.EMERGENCY;
+    const responseCareMatch = !careMatch && !safetyFlag && isCareNavigationRequest(message)
+        ? findCareOptions(`${message} ${result.text}`)
+        : careMatch;
 
     sendJson(res, 200, {
         message: result.text,
         urgency,
         safety_flag: safetyFlag,
         conversation_id: conv.id,
+        care_options: responseCareMatch
+            ? { treatment: responseCareMatch.treatment, hospitals: responseCareMatch.hospitals }
+            : null,
     });
 }
 

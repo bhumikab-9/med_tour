@@ -13,7 +13,7 @@ const BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models";
 const DEFAULT_MODEL = process.env.GEMINI_MODEL || "gemini-2.5-flash";
 
 // Tried in order when the primary model fails (404/503 etc.).
-const FALLBACK_MODELS = ["gemini-2.5-flash-lite", "gemini-2.0-flash", "gemini-1.5-flash"]; 
+const FALLBACK_MODELS = ["gemini-3.6-flash", "gemini-3.5-flash-lite"];
 
 function getApiKey() {
     const key = (process.env.GEMINI_API_KEY || "").trim();
