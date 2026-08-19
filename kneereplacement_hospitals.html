@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Knee Replacement Hospitals - MedTour India</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        .loading { text-align: center; padding: 50px; font-size: 18px; color: var(--muted); }
-        .error { color: red; text-align: center; padding: 50px; }
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 18px;
+            color: var(--muted);
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            padding: 50px;
+        }
     </style>
 </head>
+
 <body>
     <header class="navbar">
         <div class="logo"><span>+</span> MedTour India</div>
@@ -56,7 +68,7 @@
                                 <span>📍 ${h.location}</span>
                                 <span>💰 ${costStr}</span>
                             </div>
-                            <button class="card-button" onclick="alert('Consultation booking coming soon!')">Book Consultation</button>
+                            <button class="card-button" onclick="window.location.href='appointment.html?hospital=' + encodeURIComponent('${h.hospital_name}')">Book Consultation</button>
                         </div>
                     `;
                     list.appendChild(card);
@@ -68,4 +80,5 @@
             });
     </script>
 </body>
+
 </html>

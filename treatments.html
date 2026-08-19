@@ -5,38 +5,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Explore Treatments - MedTour India</title>
+    <title>Medical Treatments | MedTour India</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ================= NAVBAR ================= -->
+
     <header class="navbar">
 
-        <div class="logo">
-            <span>+</span> MedTour India
-        </div>
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="treatments.html">Treatments</a>
-            <a href="hospitals.html">Hospitals</a>
-            <a href="doctors.html">Doctors</a>
-            <a href="compare.html">Compare</a>
-            <a href="assistant.html">AI Assistant</a>
+            <span>
+                MedTour<span class="logo-india">India</span>
+            </span>
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="treatments.html" class="active-link">
+                Treatments
+            </a>
+
+            <a href="index.html#hospitals">Hospitals</a>
+
+            <a href="#">Doctors</a>
+
+            <a href="index.html#compare-cost">Compare</a>
+
+            <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
+
         </nav>
 
-        <a href="consultation.html" class="nav-btn">
-            Book Consultation
-        </a>
+
+        <div class="nav-actions">
+
+            <button class="language-btn">
+                🌐 EN
+            </button>
+
+            <button class="login-btn">
+                Login
+            </button>
+
+        </div>
 
     </header>
 
 
-    <!-- PAGE HEADER -->
+    <!-- ================= PAGE HERO ================= -->
+
+    <section class="treatments-hero">
+
+        <div class="treatments-hero-content">
+
+            <!-- PAGE HEADER -->
     <section class="page-header">
+
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(13,159,145,0.2); border: 1px solid rgba(13,159,145,0.3); color: black; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; margin-bottom: 20px;">
+            ✈️ International Patient Services Available
+        </div>
 
         <p class="small-title">EXPLORE HEALTHCARE</p>
 
@@ -44,206 +76,27 @@
 
         <p>
             Explore treatments, compare estimated costs
-            and find trusted healthcare providers.
+            and find trusted healthcare providers in India. Our dedicated international desk assists with medical visas, travel, and translation.
         </p>
 
     </section>
 
 
-    <!-- SEARCH + FILTERS -->
-    <section class="treatment-section">
+            <!-- Search -->
 
-        <div class="treatment-search">
+            <div class="treatment-search">
 
-            <input
-                type="text"
-                id="treatmentSearch"
-                placeholder="Search treatments..."
-            >
+                <span>⌕</span>
 
-            <select id="cityFilter">
-                <option value="all">All Cities</option>
-                <option value="delhi">Delhi</option>
-                <option value="mumbai">Mumbai</option>
-                <option value="chennai">Chennai</option>
-                <option value="bangalore">Bangalore</option>
-            </select>
+                <input
+                    type="text"
+                    id="treatmentSearch"
+                    placeholder="Search treatments..."
+                >
 
-            <button onclick="filterTreatments()">
-                Search
-            </button>
-
-        </div>
-
-
-        <!-- TREATMENT CARDS -->
-        <div class="treatment-list" id="treatmentList">
-
-
-            <!-- CARD 1 -->
-            <div class="treatment-item" data-city="delhi">
-
-                <div class="treatment-image">
-                    🦴
-                </div>
-
-                <div class="treatment-info">
-
-                    <p class="treatment-category">
-                        ORTHOPEDIC
-                    </p>
-
-                    <h2>Knee Replacement</h2>
-
-                    <p>
-                        Advanced joint replacement procedures
-                        by experienced orthopedic surgeons.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Delhi</span>
-
-                        <span>💰 ₹1,50,000 - ₹2,50,000</span>
-
-                        <span>⏱ 5-7 Days</span>
-
-                    </div>
-
-                    <a
-                        href="kneereplacement_hospitals.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 2 -->
-            <div class="treatment-item" data-city="mumbai">
-
-                <div class="treatment-image">
-                    🩹
-                </div>
-
-                <div class="treatment-info">
-
-                    <p class="treatment-category">
-                        ORTHOPEDIC
-                    </p>
-
-                    <h2>Fracture Treatment</h2>
-
-                    <p>
-                        Comprehensive fracture care and rehabilitation
-                        by top orthopedic specialists.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Mumbai</span>
-
-                        <span>💰 ₹20,000 - ₹60,000</span>
-
-                        <span>⏱ 1-3 Days</span>
-
-                    </div>
-
-                    <a
-                        href="fracture_hospitals.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 3 -->
-            <div class="treatment-item" data-city="chennai">
-
-                <div class="treatment-image">
-                    🩻
-                </div>
-
-                <div class="treatment-info">
-
-                    <p class="treatment-category">
-                        DIAGNOSTICS
-                    </p>
-
-                    <h2>MRI Scan</h2>
-
-                    <p>
-                        High-resolution Magnetic Resonance Imaging
-                        for accurate and fast diagnosis.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Chennai</span>
-
-                        <span>💰 ₹5,000 - ₹12,000</span>
-
-                        <span>⏱ 1 Day</span>
-
-                    </div>
-
-                    <a
-                        href="mri_hospitals.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
-
-                </div>
-
-            </div>
-
-
-            <!-- CARD 4 -->
-            <div class="treatment-item" data-city="bangalore">
-
-                <div class="treatment-image">
-                    👶
-                </div>
-
-                <div class="treatment-info">
-
-                    <p class="treatment-category">
-                        MATERNITY
-                    </p>
-
-                    <h2>Maternity & Delivery</h2>
-
-                    <p>
-                        Safe and comprehensive maternity care
-                        for normal and cesarean deliveries.
-                    </p>
-
-                    <div class="treatment-details">
-
-                        <span>📍 Bangalore</span>
-
-                        <span>💰 ₹60,000 - ₹1,50,000</span>
-
-                        <span>⏱ 2-4 Days</span>
-
-                    </div>
-
-                    <a
-                        href="delivery_hospitals.html"
-                        class="card-button"
-                    >
-                        View Treatment
-                    </a>
-
-                </div>
+                <button onclick="searchTreatmentButton()">
+                    Search
+                </button>
 
             </div>
 
@@ -252,21 +105,235 @@
     </section>
 
 
-    <!-- FOOTER -->
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <main class="treatments-page">
+
+        <!-- Categories -->
+
+        <section class="category-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        BROWSE BY SPECIALTY
+                    </span>
+
+                    <h2>
+                        Medical Specialties
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="specialty-grid" id="specialtyGrid">
+                <div style="grid-column: 1/-1; text-align:center; padding: 20px; color: var(--muted);">Loading specialties...</div>
+            </div>
+
+        </section>
+
+
+        <!-- ================= TREATMENT LIST ================= -->
+
+        <section class="treatment-list-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        EXPLORE
+                    </span>
+
+                    <h2>
+                        Popular Treatments
+                    </h2>
+
+                    <p>
+                        Compare common procedures and
+                        estimated treatment costs.
+                    </p>
+
+                </div>
+
+
+                <div class="sort-box">
+
+                    <label for="sortTreatments">
+                        Sort by
+                    </label>
+
+                    <select id="sortTreatments">
+                        <option value="popular">
+                            Most Popular
+                        </option>
+
+                        <option value="price-low">
+                            Price: Low to High
+                        </option>
+
+                        <option value="price-high">
+                            Price: High to Low
+                        </option>
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="full-treatment-grid"
+                id="treatmentGrid"
+            >
+                <div class="loading" style="text-align: center; padding: 50px; font-size: 18px; color: var(--muted); grid-column: 1 / -1;">
+                    Fetching treatments from database...
+                </div>
+            </div>
+
+
+            <!-- No results -->
+
+            <div
+                id="noTreatments"
+                class="no-results"
+            >
+                <span>🔎</span>
+
+                <h3>
+                    No treatments found
+                </h3>
+
+                <p>
+                    Try searching for another treatment
+                    or specialty.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
     <footer>
 
-        <div class="footer-logo">
-            <span>+</span> MedTour India
+        <div class="footer-main">
+
+            <div class="footer-brand">
+
+                <a href="index.html" class="logo footer-logo">
+
+                    <span class="logo-icon">
+                        +
+                    </span>
+
+                    <span>
+                        MedTour<span class="logo-india">
+                            India
+                        </span>
+                    </span>
+
+                </a>
+
+                <p>
+                    Making healthcare discovery simpler,
+                    clearer and more accessible.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Explore
+                </h4>
+
+                <a href="treatments.html">
+                    Treatments
+                </a>
+
+                <a href="#">
+                    Hospitals
+                </a>
+
+                <a href="#">
+                    Doctors
+                </a>
+
+                <a href="#">
+                    Compare
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Company
+                </h4>
+
+                <a href="#">
+                    About Us
+                </a>
+
+                <a href="#">
+                    How It Works
+                </a>
+
+                <a href="#">
+                    Contact
+                </a>
+
+                <a href="#">
+                    FAQs
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h4>
+                    Support
+                </h4>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Privacy
+                </a>
+
+                <a href="#">
+                    Terms
+                </a>
+
+            </div>
+
         </div>
 
-        <p>
-            Helping patients discover healthcare
-            options across India.
-        </p>
 
-        <p class="copyright">
-            © 2026 MedTour India
-        </p>
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 MedTour India
+            </span>
+
+            <span>
+                Built for better healthcare discovery.
+            </span>
+
+        </div>
 
     </footer>
 

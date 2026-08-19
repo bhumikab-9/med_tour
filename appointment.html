@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment | MedTour India</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .appointment-hero {
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 100%);
+            color: var(--white);
+            padding: 80px 8% 120px;
+            text-align: center;
+            position: relative;
+        }
+
+        .appointment-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(13, 159, 145, 0.15) 0%, transparent 60%);
+            z-index: 0;
+        }
+
+        .appointment-hero>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: -80px auto 80px;
+            background: var(--white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(18, 60, 105, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--background);
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(13, 159, 145, 0.1);
+            background: var(--white);
+        }
+
+        .date-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .date-row .form-group {
+            flex: 1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background: var(--teal-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(13, 159, 145, 0.2);
+        }
+
+        .international-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eef9f7;
+            color: var(--teal-dark);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 25px;
+            border: 1px solid rgba(13, 159, 145, 0.2);
+        }
+    </style>
+</head>
+
+<body style="background: var(--background);">
+
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <a href="index.html" class="logo">
+            <span class="logo-icon">+</span>
+            <span>MedTour<span class="logo-india">India</span></span>
+        </a>
+        <nav class="nav-links">
+            <a href="treatments.html">Treatments</a>
+            <a href="#">Hospitals</a>
+            <a href="#">Doctors</a>
+            <a href="#">Compare</a>
+            <a href="appointment.html" style="color: var(--teal); font-weight: 700;">Book</a>
+        </nav>
+        <div class="nav-actions">
+            <button class="language-btn">🌐 EN</button>
+            <button class="login-btn">Login</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="appointment-hero">
+            <h1>Book Your Medical Trip</h1>
+            <p style="color: #a9bbc9; max-width: 500px; margin: 15px auto 0;">
+                Schedule your consultation with top specialists in India. Our international patient team will assist you
+                with visas, travel, and translation.
+            </p>
+        </section>
+
+        <div class="form-container">
+            <div class="international-badge">
+                ✈️ Priority International Patient Desk
+            </div>
+
+            <form
+                onsubmit="event.preventDefault(); alert('Appointment request submitted successfully! Our international desk will contact you shortly.'); window.location.href='index.html';">
+
+                <div class="form-group">
+                    <label for="username">Username (Full Name)</label>
+                    <input type="text" id="username" placeholder="Enter your full name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="Enter your email address" required>
+                </div>
+
+                <div class="date-row">
+                    <div class="form-group">
+                        <label for="startDate">Available Start Date</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Available End Date</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="treatment">Treatment Seeking</label>
+                    <select id="treatment" required>
+                        <option value="" disabled selected>Select a treatment...</option>
+                        <option value="heart">Heart Bypass Surgery</option>
+                        <option value="ortho">Knee Replacement</option>
+                        <option value="ivf">IVF Treatment</option>
+                        <option value="dental">Dental Implants</option>
+                        <option value="neuro">Brain Tumor Surgery</option>
+                        <option value="other">Other / Not Sure Yet</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="hospital">Preferred Hospital</label>
+                    <select id="hospital">
+                        <option value="" disabled selected>Select a hospital (Optional)...</option>
+                        <option value="apollo">Apollo Hospitals</option>
+                        <option value="fortis">Fortis Healthcare</option>
+                        <option value="medanta">Medanta</option>
+                        <option value="manipal">Manipal Hospitals</option>
+                        <option value="max">Max Super Speciality Hospital</option>
+                        <option value="no_preference">No Preference / Help me choose</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Additional Requirements (Visa, Translator, Transport)</label>
+                    <textarea id="notes" rows="4"
+                        placeholder="Let us know how we can assist your travel and stay in India..."></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Request Appointment</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-main">
+            <div class="footer-brand">
+                <a href="index.html" class="logo footer-logo">
+                    <span class="logo-icon">+</span>
+                    <span>MedTour<span class="logo-india">India</span></span>
+                </a>
+                <p>Making healthcare discovery simpler, clearer and more accessible.</p>
+            </div>
+        </div>
+        <div class="footer-bottom"
+            style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; text-align:center;">
+            <span>© 2026 MedTour India</span>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
